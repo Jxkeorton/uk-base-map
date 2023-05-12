@@ -1,4 +1,5 @@
 import GoogleMapReact from 'google-map-react'
+import LocationMarker from './LocationMarker'
 
 interface MapProps {
     center: {lat: number, lng: number};
@@ -13,7 +14,7 @@ const Map: React.FC<MapProps> = ({ center, zoom }) => {
         defaultCenter={ center }
         defaultZoom={ zoom }
       >
-
+        <LocationMarker lat={center.lat} lng={center.lng} />
       </GoogleMapReact>
     </div>
   )

@@ -4,9 +4,15 @@ body {
 }
 
 
-/* Map CSS */
+/* Map styles */
 .map {
     width: 100vw;
     height: 100vh;
     position: relative;
+}
+
+/* location marker styles */
+.location-icon {
+    font-size: 2rem;
+    color: red;
 }
