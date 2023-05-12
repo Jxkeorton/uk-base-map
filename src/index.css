@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Map CSS */
+.map {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
