@@ -52,6 +52,7 @@ nav {
   
   .h-a:hover {
     color: #df9c38;
+    cursor: pointer;
   }
 
   @media screen and (max-width: 600px) {

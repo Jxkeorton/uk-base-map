@@ -32,7 +32,7 @@ console.log(infoBox)
         defaultCenter={{ lat: 51.5074, lng: -0.1858 }} 
         defaultZoom={7} 
       >
-        {markers}
+         {markers}
       </GoogleMapReact>
       {infoBox && <InfoBox info={infoBox} />}
     </div>
