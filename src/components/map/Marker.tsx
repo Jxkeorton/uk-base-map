@@ -1,23 +1,18 @@
+import MountainIcon from "./icon";
+
 interface MarkerProps {
     lat: number;
     lng: number;
     text: string;
+    onClick: (ev: { name: string, coordinates: [number, number] }) => void;
   }
 
-const Marker: React.FC<MarkerProps> = ({text}) => (
-    <div
-      style={{
-        position: 'absolute',
-        transform: 'translate(-50%, -50%)',
-        top: '50%',
-        left: '50%',
-        width: '20px',
-        height: '20px',
-        background: 'red',
-        borderRadius: '50%',
-      }}
+const Marker: React.FC<MarkerProps> = ({text, onClick}) => (
+    <div 
+      onClick={onClick}
+      className="custom-marker"
     >
-      {text}
+      <MountainIcon />
     </div>
   );
 
