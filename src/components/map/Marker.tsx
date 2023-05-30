@@ -7,7 +7,7 @@ interface MarkerProps {
     onClick: (ev: { name: string, coordinates: [number, number] }) => void;
   }
 
-const Marker: React.FC<MarkerProps> = ({text, onClick}) => (
+const Marker: React.FC<MarkerProps> = ({onClick}) => (
     <div 
       onClick={onClick}
       className="custom-marker"

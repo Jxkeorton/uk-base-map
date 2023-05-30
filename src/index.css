@@ -73,9 +73,30 @@ nav {
     position: fixed;
     left: 0;
     bottom: 0;
-    height: auto;
+    height: 20px; 
     background-color: black;
+    opacity: 1;
+    z-index: 9999;
   }
+
+  .footer:before {
+    content: "...";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  /* Show full footer on hover */
+  .footer:hover {
+    opacity: 1;
+    height: auto; 
+  }
+  
+  
   .footer .col {
     width: 25%;
     height: auto;
