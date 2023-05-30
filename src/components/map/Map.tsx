@@ -1,31 +1,29 @@
-import GoogleMapReact from 'google-map-react'
-import LocationMarker from './LocationMarker'
+import GoogleMapReact from 'google-map-react';
+import Marker from './Marker';
 
-interface MapProps {
-    center: {lat: number, lng: number};
-    zoom: number;
+interface Locations {
+  eventData: any;
 }
 
-const Map: React.FC<MapProps> = ({ center, zoom }) => {
+const Map: React.FC<Locations> = ({ eventData }) => {
   return (
-    <div className='map' >
+    <div className='map'>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyA5YDarjMw4UAUSVCIrBX1PJwP14l9nqSg' }}
-        defaultCenter={ center }
-        defaultZoom={ zoom }
+        defaultCenter={{ lat: 51.5074, lng: -0.1858 }} 
+        defaultZoom={7} 
       >
-        <LocationMarker lat={center.lat} lng={center.lng} />
+        {eventData.map((ev: any) => (
+          <Marker
+            key={ev.id}
+            lat={ev.coordinates[0]} // Latitude from the coordinate array
+            lng={ev.coordinates[1]} // Longitude from the coordinate array
+            text={`Pin ${ev.id + 1}`} // Text to display on the marker
+          />
+        ))}
       </GoogleMapReact>
     </div>
-  )
-}
-
-Map.defaultProps = {
-    center: {
-        lat: 53.232842,
-        lng: -1.587728
-    },
-    zoom: 7
-}
+  );
+};
 
 export default Map
