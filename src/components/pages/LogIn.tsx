@@ -3,13 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg'
 
-type FormData = {
-  name: string;
-  email: string;
-  password: string;
-  timestamp?: unknown;
-};
-
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
