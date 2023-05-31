@@ -1,15 +1,8 @@
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 const Header = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-
-  const pathMatchRoute = (route) => {
-      if(route === location.pathname) {
-          return true
-      }
-  }
 
   return (
     <nav className="header" >
