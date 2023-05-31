@@ -4,6 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile, User as Firebas
 import app from '../../firebase.config';
 import { setDoc, doc, serverTimestamp, getFirestore } from 'firebase/firestore';
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
+import { toast } from 'react-toastify'
 
 type FormData = {
   name: string;
@@ -56,7 +57,7 @@ function Register() {
 
       navigate('/');
     } catch (error) {
-      console.log(error);
+      toast.error('something went wrong with registration');
     }
   }
 

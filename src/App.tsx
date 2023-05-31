@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import Map from './components/map/Map'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
@@ -8,6 +9,7 @@ import LogIn from './components/pages/LogIn'
 import ForgotPassword from './components/pages/ForgotPassword'
 import Location from './components/pages/Location'
 import Profile from './components/pages/Profile'
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Locations {
   id: number;
@@ -60,6 +62,19 @@ function App() {
         </Routes>
         <Header />
       </Router>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+         />
       <Footer />
     </>
   )
