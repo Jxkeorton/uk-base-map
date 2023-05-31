@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Map from './components/map/Map'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
-import Loader from './assets/Loader/Loader'
 import Register from './components/pages/Register'
 import LogIn from './components/pages/LogIn'
 import ForgotPassword from './components/pages/ForgotPassword'
 import Location from './components/pages/Location'
+import Profile from './components/pages/Profile'
 
 interface Locations {
   id: number;
@@ -53,7 +53,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Map eventData={eventData} />} />
           <Route path='location' element={<Location />} />
-          <Route path='/profile' element={<LogIn />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/log-in' element={<LogIn />} />
           <Route path='/register' element={<Register />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />

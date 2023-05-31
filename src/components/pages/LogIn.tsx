@@ -1,6 +1,14 @@
-import { useState } from 'react'
+import { useState, FormEvent, ChangeEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg'
+
+type FormData = {
+  name: string;
+  email: string;
+  password: string;
+  timestamp?: unknown;
+};
 
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false)
@@ -12,11 +20,31 @@ function LogIn() {
 
   const navigate = useNavigate()
 
-  const onChange = (e: any) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.id]: e.target.value,
+      [id]: value,
     }))
+  }
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+
+    try {
+    const auth = getAuth()
+
+    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+
+    if(userCredential.user) {
+      navigate('/')
+    }
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+    
   }
 
   return (
@@ -26,7 +54,7 @@ function LogIn() {
         <p className='log-in-title' >Log In</p>
       </header>
 
-      <form className="log-in-form">
+      <form className="log-in-form" onSubmit={onSubmit} >
         <div className='input-wrapper'>
         <input
           type="email"
