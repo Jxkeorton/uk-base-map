@@ -1,23 +1,63 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import visibilityIcon from '../../assets/svg/visibilityIcon.svg'
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword, updateProfile, User as FirebaseUser  } from 'firebase/auth';
+import app from '../../firebase.config';
+import { setDoc, doc, serverTimestamp, getFirestore } from 'firebase/firestore';
+import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
+
+type FormData = {
+  name: string;
+  email: string;
+  password: string;
+  timestamp?: unknown;
+};
 
 function Register() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [formData, setFormData] = useState({
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    password: ''
-  })
-  const {email, password, name} = formData
+    password: '',
+    timestamp: null,
+  });
+  const { email, password, name } = formData;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const onChange = (e: any) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.id]: e.target.value,
-    }))
+      [id]: value,
+    }));
+  };
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth(app);
+
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      const user: FirebaseUser | null = userCredential.user;
+
+      if (auth.currentUser !== null) {
+        await updateProfile(auth.currentUser, {
+          displayName: name,
+        });
+      }
+
+      const { password: _, ...formDataCopy } = formData;
+      formDataCopy.timestamp = serverTimestamp();
+
+      const db = getFirestore(app);
+      await setDoc(doc(db, 'users', user.uid), formDataCopy);
+
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -27,7 +67,7 @@ function Register() {
         <p className='log-in-title' >Register</p>
       </header>
 
-      <form className="log-in-form">
+      <form className="log-in-form" onSubmit={onSubmit} >
       <div className='input-wrapper'>
         <input
           type="text"
@@ -64,7 +104,7 @@ function Register() {
             alt="show password"
             className="log-in-show-password"
             onClick={() => setShowPassword((prevState) => !prevState)}
-          />
+          /> 
         </div>
         <Link to='/log-in' className='log-in-register-link' >
         Alreday have an account ? Log In
