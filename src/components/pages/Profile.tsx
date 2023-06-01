@@ -1,37 +1,34 @@
-import { getAuth, User as FirebaseUser,  onAuthStateChanged} from 'firebase/auth'
-import { useState, useEffect } from 'react'
-import { useNavigate, Link} from 'react-router-dom'
+import { getAuth } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-interface CustomUser extends FirebaseUser {
+interface UserProfile {
   displayName: string | null;
   email: string | null;
 }
 
 function Profile() {
   const auth = getAuth();
-  const [formData, setFormData] = useState<CustomUser | null>(null);
+  const [formData, setFormData] = useState<UserProfile | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setFormData({
-          displayName: user.displayName ?? null,
-          email: user.email ?? null,
-        } as CustomUser | null);
-      }
-    });
-
-    return () => unsubscribe();
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      setFormData({
+        displayName: currentUser.displayName ?? null,
+        email: currentUser.email ?? null,
+      });
+    }
   }, [auth]);
 
-  const navigate = useNavigate()
+  const { displayName, email } = formData || {};
 
   const onLogout = () => {
-    auth.signOut()
-    navigate('/')
-  } 
-
-
+    auth.signOut();
+    navigate('/');
+  }
   return (
     <div className='profile' >
       <header className="profile-header">
@@ -42,8 +39,8 @@ function Profile() {
       </header>
       {formData && (
         <div className="profile-info">
-          <p>Display Name: {formData.displayName}</p>
-          <p>Email: {formData.email}</p>
+          <p>Display Name: {displayName}</p>
+          <p>Email: {email}</p>
         </div>
       )}
     </div>

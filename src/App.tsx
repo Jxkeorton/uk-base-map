@@ -10,6 +10,7 @@ import ForgotPassword from './components/pages/ForgotPassword'
 import Location from './components/pages/Location'
 import Profile from './components/pages/Profile'
 import 'react-toastify/dist/ReactToastify.css';
+import PrivateRoute from './components/PrivateRoute'
 
 interface Locations {
   id: number;
@@ -55,7 +56,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Map eventData={eventData} />} />
           <Route path='location' element={<Location />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<PrivateRoute />} >
+            <Route path='/profile' element={<Profile />} />
+          </Route>
           <Route path='/log-in' element={<LogIn />} />
           <Route path='/register' element={<Register />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
