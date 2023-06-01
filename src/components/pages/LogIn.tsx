@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg'
+import OAuth from '../OAuth'
 
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false)
@@ -90,6 +91,9 @@ function LogIn() {
           </button>
         </div>
       </form>
+
+      <OAuth />
+
       </div>
     </>
   )

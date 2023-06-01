@@ -5,6 +5,7 @@ import app from '../../firebase.config';
 import { setDoc, doc, serverTimestamp, getFirestore } from 'firebase/firestore';
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
 import { toast } from 'react-toastify'
+import OAuth from '../OAuth';
 
 type FormData = {
   name: string;
@@ -118,7 +119,8 @@ function Register() {
         </div>
       </form>
 
-      
+      <OAuth />
+
       </div>
     </>
   )
