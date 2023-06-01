@@ -90,8 +90,6 @@ function LogIn() {
           </button>
         </div>
       </form>
-
-      
       </div>
     </>
   )

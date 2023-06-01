@@ -13,9 +13,6 @@ const Header = () => {
             <li className="h-li" onClick={() => navigate('/profile')} >
               <p className="h-a" >Profile</p>
             </li>
-            <li className="h-li" onClick={() => navigate('/log-in')} >
-              <p className="h-a" >Log In</p>
-            </li>
         </ul>
     </nav>
   )
