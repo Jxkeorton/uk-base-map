@@ -375,3 +375,41 @@ nav {
 .log-in-register-link:hover {
   color:#c57e2e;
 }
+
+/* Profile styles */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.profile-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.page-header {
+  font-size: 3rem;
+  font-weight: bolder;
+  color: #df9c38;
+  text-shadow: 1px 1px 0 black;
+}
+
+.logOut {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  background-color: #df9c38;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.logOut:hover {
+  background-color: #c57e2e;
+}
