@@ -212,7 +212,7 @@ nav {
 
    .infoBox {
     position: absolute;
-    margin-top: 40px;
+    margin-top: 90px;
     top: 50px;
     right: 50px;
     width: 400px;
@@ -233,7 +233,15 @@ nav {
     padding: 5px 0;
    }
 
-   .infoBox button {
+   /* button saved/unsaved  */
+   .infoBox-button-unsave {
+    width: 80px;
+    background-color: hsl(10, 72%, 55%);
+    font-weight: bold;
+    border-radius: 10px;
+   }
+
+   .infoBox-button-save {
     width: 80px;
     background-color: #df9c38;
     font-weight: bold;

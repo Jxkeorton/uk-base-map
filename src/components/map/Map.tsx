@@ -9,7 +9,7 @@ interface Locations {
 }
 
 const Map: React.FC<Locations> = ({ eventData }) => {
-  const [infoBox, setInfoBox] = useState<{ name: string, coordinates: [number, number] } | null>(null);
+  const [infoBox, setInfoBox] = useState<{ id: number, name: string, coordinates: [number, number] } | null>(null);
 
 
   const markers = eventData.map((ev: any) => {
@@ -19,7 +19,7 @@ const Map: React.FC<Locations> = ({ eventData }) => {
         lat={ev.coordinates[0]} // Latitude from the coordinate array
         lng={ev.coordinates[1]} // Longitude from the coordinate array
         text={`${ev.id + 1}`}
-        onClick={() => setInfoBox({ name: ev.name, coordinates: [ev.coordinates[0], ev.coordinates[1]] })}
+        onClick={() => setInfoBox({ id:ev.id, name: ev.name, coordinates: [ev.coordinates[0], ev.coordinates[1]] })}
       />
     }
     return null
