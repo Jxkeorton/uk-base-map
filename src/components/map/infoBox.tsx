@@ -3,6 +3,7 @@ import { db } from '../../firebase.config';
 import {toast} from 'react-toastify'
 import { getAuth } from 'firebase/auth';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 
 interface Locations {
     info: any;
@@ -85,11 +86,16 @@ const InfoBox: React.FC<Locations>  = ({ info }) => {
         <li>TITLE: <strong>{ info.name }</strong></li>
         <li>COORDINATES: <strong>{ info.coordinates[0] }, {info.coordinates[1]}</strong></li>
       </ul>
-      {isSaved ? 
-        <button onClick={onClick} className='infoBox-button-unsave'><p>Unsave</p></button>
-        :
-        <button onClick={onClick} className='infoBox-button-save'><p>Save</p></button>
-      }
+      <div className='buttonsContainer'>
+        {isSaved ? 
+          <button onClick={onClick} className='infoBox-button-unsave'><p>Unsave</p></button>
+          :
+          <button onClick={onClick} className='infoBox-button-save'><p>Save</p></button>
+        }
+        <Link to={`/location/${info.id}`} >
+          <button className='infoBoxMore' ><p>More</p></button>
+        </Link>
+      </div>
     </div>
   )
 }

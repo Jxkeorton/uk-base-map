@@ -233,7 +233,13 @@ nav {
     padding: 5px 0;
    }
 
-   /* button saved/unsaved  */
+   /* buttons for infobox */
+   .buttonsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+
    .infoBox-button-unsave {
     width: 80px;
     background-color: hsl(10, 72%, 55%);
@@ -251,6 +257,14 @@ nav {
    .infoBox button:hover {
     background-color: whitesmoke;
     cursor: pointer;
+   }
+
+   .infoBoxMore {
+    width: 80px;
+    background-color: #df9c38;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-left: auto;
    }
 
    /* Marker */
