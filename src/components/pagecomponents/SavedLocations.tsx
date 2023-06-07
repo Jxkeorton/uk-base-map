@@ -19,7 +19,7 @@ const SavedLocations: React.FC<Props> = ({ data, onDelete }) => {
     
       <>
         {data.map((locationData: Location) =>(
-          <Link to={`/location/${locationData.id}`} >
+          <Link to={`/location/${locationData.id}`} className='locationLink' >
             <div key={locationData.id} className='card' >
               <h3>{locationData.name}</h3>
               <p>Coordinates: {locationData.coordinates.join(', ')}</p>

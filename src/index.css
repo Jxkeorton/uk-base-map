@@ -472,3 +472,11 @@ nav {
   background-color: whitesmoke;
   cursor: pointer;
 }
+
+.locationLink {
+  display: contents;
+}
+
+.locationLink:hover {
+  display: block;
+}
