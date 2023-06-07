@@ -1,3 +1,4 @@
+
 interface Location {
   id: number;
   name: string;
@@ -6,7 +7,7 @@ interface Location {
 }
 
 
-const SavedLocations = ({ data }) => {
+const SavedLocations = ({ data, onDelete }) => {
 
   return (
     <div>
@@ -14,6 +15,7 @@ const SavedLocations = ({ data }) => {
         <div key={locationData.id} className='card' >
           <h3>{locationData.name}</h3>
           <p>Coordinates: {locationData.coordinates.join(', ')}</p>
+          <button onClick={() => onDelete(locationData.id)} className='infoBox-button-unsave'><p>Unsave</p></button>
         </div>
       ))}
     </div>

@@ -2,8 +2,8 @@ import { getAuth } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SavedLocations from '../pagecomponents/SavedLocations';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../firebase.config'
+import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore';
+import { db } from '../../firebase.config';
 
 interface Location {
   id: number;
@@ -60,6 +60,30 @@ function Profile() {
 
   }, [locations, fetchedData]);
 
+  const onDelete = async (locationId: number) => {
+    // Perform the delete operation here, such as updating the Firestore document
+    try {
+      // Delete the location using the locationId
+      // Example code using Firestore
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        console.error('No authenticated user found');
+        return;
+      }
+      const userId: string = currentUser.uid;
+      const userDocRef = doc(db, 'users', userId);
+      await updateDoc(userDocRef, {
+        locationIds: arrayRemove(locationId)
+      });
+      console.log('Location deleted successfully');
+  
+      // Update the filteredLocations state by removing the deleted location
+      setFilteredLocations(filteredLocations.filter((location) => location.id !== locationId));
+    } catch (error) {
+      console.error('Could not delete location:', error);
+    }
+  };
+
   const onLogout = () => {
     auth.signOut();
     navigate('/');
@@ -71,25 +95,36 @@ function Profile() {
   console.log('filtered locations:', filteredLocations)
   
   return (
-    <div className='profile' >
-      <header className="profile-header">
-        <p className='page-header'>My Profile</p>
-        <button type='button' className='logOut' onClick={onLogout} >
-          Logout
-        </button>
-      </header>
-      {name && (
-        <div className="profile-info">
-          <p>Display Name: {name}</p>
-          <p>Email: {email}</p>
-        </div>
-      )}
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <SavedLocations data={filteredLocations} />
-      )}
-    </div>
+    <>
+    <div className='card-container' >
+      <div className='profile' >
+        <header className="profile-header">
+          <p className='page-header'>My Profile</p>
+          <button type='button' className='logOut' onClick={onLogout} >
+            Logout
+          </button>
+        </header>
+        {name && (
+          <div className="profile-info">
+            <h4>You are logged in as...</h4>
+            <p>Name: {name}</p>
+            <p>Email: {email}</p>
+          </div>
+        )}
+      </div>
+      <div className='profile-right-side' >
+        <h2>
+          {filteredLocations.length > 0 ? 'Saved Locations' : 'Use the map to save locations...' }
+        </h2>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <SavedLocations data={filteredLocations} onDelete={onDelete} />
+        )}
+      </div>
+      
+    </div>  
+    </>
   )
 }
 
