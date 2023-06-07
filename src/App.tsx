@@ -50,12 +50,16 @@ function App() {
     
 
   console.log(eventData)
+
+  if(loading) {
+    return <p>Loading...</p>
+  }
   return (
     <>
       <Router>
         <Routes>
           <Route path='/' element={<Map eventData={eventData} />} />
-          <Route path='location' element={<Location />} />
+          <Route path='/location/:locationId' element={<Location />} />
           <Route path='/profile' element={<PrivateRoute />} >
             <Route path='/profile' element={<Profile />} />
           </Route>
