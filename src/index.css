@@ -447,3 +447,13 @@ nav {
 .socialIconImg {
   width: 100%;
 }
+
+/* Saved Locations cards for profile */
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
