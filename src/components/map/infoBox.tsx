@@ -11,6 +11,18 @@ interface Locations {
 
 const InfoBox: React.FC<Locations>  = ({ info }) => {
   const [isSaved, setIsSaved] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is logged in
+    const checkUserLoggedIn = () => {
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
+      setIsLoggedIn(currentUser !== null);
+    };
+
+    checkUserLoggedIn();
+  }, []);
 
   useEffect(() => {
     // Check if the location ID is already saved by the user
@@ -39,6 +51,12 @@ const InfoBox: React.FC<Locations>  = ({ info }) => {
   }, [info.id]);
 
   const onClick = async () => {
+    // Check if the user is logged in
+    if (!isLoggedIn) {
+      console.error('No authenticated user found');
+      return;
+    }
+
     try {
       // Get the current user
       const auth = getAuth();
@@ -87,11 +105,12 @@ const InfoBox: React.FC<Locations>  = ({ info }) => {
         <li>COORDINATES: <strong>{ info.coordinates[0] }, {info.coordinates[1]}</strong></li>
       </ul>
       <div className='buttonsContainer'>
-        {isSaved ? 
-          <button onClick={onClick} className='infoBox-button-unsave'><p>Unsave</p></button>
-          :
-          <button onClick={onClick} className='infoBox-button-save'><p>Save</p></button>
-        }
+        {isLoggedIn && (
+          isSaved ? 
+            <button onClick={onClick} className='infoBox-button-unsave'><p>Unsave</p></button>
+            :
+            <button onClick={onClick} className='infoBox-button-save'><p>Save</p></button>
+        )}
         <Link to={`/location/${info.id}`} >
           <button className='infoBoxMore' ><p>More</p></button>
         </Link>

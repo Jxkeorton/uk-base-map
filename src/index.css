@@ -22,39 +22,57 @@ body {
 /* Header/navbar CSS */
 
 nav {
-    position: absolute;
-    z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .h-ul {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: black;
-  }
-  
-  .h-li {
-    font-weight: bold;
-    float: left;
-  }
-  
-  .h-a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 30px 16px;
-    text-decoration: none;
-    transition: 0.4s;
-  }
-  
-  .h-a:hover {
-    color: #df9c38;
-    cursor: pointer;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+.h-li {
+  text-align: center;
+  font-weight: bold;
+}
+
+.h-a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.h-a:hover {
+  color: #df9c38;
+  cursor: pointer;
+}
+
+.h-li:nth-child(2) {
+  margin-left: auto;
+}
+
+.header-img {
+  height: 40px;
+  width: 40px;
+  padding: 14px 16px;
+}
+
+.profile-link {
+  font-weight: bold;
+  margin-right: 50px;
+}
+
 
   @media screen and (max-width: 600px) {
     .h-ul .h-li {
@@ -402,10 +420,10 @@ nav {
 .profile {
   display: flex;
   flex-direction: column;
-  margin-top: 90px;
+  margin-top: 300px;
   align-items:center;
   justify-content: center;
-  height: 50vh;
+  height: 40vh;
 }
 
 .profile-header {
@@ -466,25 +484,21 @@ nav {
 /* Saved Locations cards for profile */
 
 .card {
-  border: 1px solid #ccc;
+  border: 5px solid black;
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 10px;
+  margin-right: 30px;
   background-color: #f9f9f9;
 }
 
 .card-container {
   display: grid;
-  margin-top: 140px;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  gap: 10px; /* Spacing between cards */
-  overflow-y: auto; /* Enable vertical scrolling */
-  max-height: 100vh; /* Set a maximum height for the container */
-}
-
-.card button:hover {
-  background-color: whitesmoke;
-  cursor: pointer;
+  margin-top: 100px;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
+  overflow-y: auto; 
+  max-height: 85vh; 
 }
 
 .locationLink {
@@ -493,4 +507,42 @@ nav {
 
 .locationLink:hover {
   display: block;
+}
+
+.cardButton {
+  width: 80px;
+  background-color: #df9c38;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.card button:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+
+/* Location page */
+
+.locationImage {
+  width: 400px;
+  height: 400px;
+}
+
+.LocationPageContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 90px;
+  padding-top: 90px;
+  align-items:center;
+  justify-content: center;
+  height: 550px;
+  overflow-y: scroll;
+}
+
+.notes {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 4px;
+  opacity: 0.8;
 }
