@@ -13,17 +13,26 @@ const Map: React.FC<Locations> = ({ eventData }) => {
 
 
   const markers = eventData.map((ev: any) => {
-    if(eventData) {
-      return <Marker
-        key={ev.id}
-        lat={ev.coordinates[0]} // Latitude from the coordinate array
-        lng={ev.coordinates[1]} // Longitude from the coordinate array
-        text={`${ev.id + 1}`}
-        onClick={() => setInfoBox({ id:ev.id, name: ev.name, coordinates: [ev.coordinates[0], ev.coordinates[1]] })}
-      />
+    if (eventData) {
+      return (
+        <Marker
+          key={ev.id}
+          lat={ev.coordinates[0]}
+          lng={ev.coordinates[1]}
+          text={`${ev.id + 1}`}
+          onClick={() =>
+            setInfoBox({
+              id: ev.id,
+              name: ev.name,
+              coordinates: [ev.coordinates[0], ev.coordinates[1]],
+            })
+          }
+          highlighted={infoBox?.id === ev.id}
+        />
+      );
     }
-    return null
-  })
+    return null;
+  });
 
 
 console.log(infoBox)

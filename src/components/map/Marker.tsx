@@ -5,12 +5,13 @@ interface MarkerProps {
     lng: number;
     text: string;
     onClick: (ev: { name: string, coordinates: [number, number] }) => void;
+    highlighted: any;
   }
 
-const Marker: React.FC<MarkerProps> = ({onClick}) => (
+const Marker: React.FC<MarkerProps> = ({onClick, highlighted}) => (
     <div 
       onClick={onClick}
-      className="custom-marker"
+      className={`custom-marker ${highlighted ? 'highlighted' : ''}`}
     >
       <MountainIcon />
     </div>

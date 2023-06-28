@@ -304,6 +304,10 @@ nav {
   transform: translate(-50%, -50%) scale(1.2);
 }
 
+.custom-marker.highlighted {
+  background-color: #df9c38;
+}
+
 /* Marker inner content */
 .custom-marker div {
   position: absolute;
