@@ -11,6 +11,7 @@ import Location from './components/pages/Location'
 import Profile from './components/pages/Profile'
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './components/PrivateRoute'
+import Search from './components/search/Search'
 
 interface Locations {
   id: number;
@@ -66,6 +67,7 @@ function App() {
           <Route path='/log-in' element={<LogIn />} />
           <Route path='/register' element={<Register />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/search-locations' element={<Search />} />
         </Routes>
         <Header />
       </Router>

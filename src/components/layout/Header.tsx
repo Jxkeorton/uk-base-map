@@ -13,6 +13,9 @@ const Header = () => {
             <li className="h-li" onClick={() => navigate('/')} >
               <p className="h-a" >UK BASE Map</p>
             </li>
+            <li className='h-li' onClick={() => navigate('/search-locations')} >
+              <p className="h-a">Search</p>
+            </li>
             <li className="profile-link" onClick={() => navigate('/profile')} >
               <p className="h-a" >Profile</p>
             </li>
