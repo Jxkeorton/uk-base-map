@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 
 interface Location {
   id: number;
@@ -9,9 +10,15 @@ interface Props {
 }
 
 const LocationsResultsCard: React.FC<Props> = ({ location }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/location/${location.id}`);
+  };
+
   return (
-    <div>
-      {location.name}
+    <div className="searchResults" onClick={handleClick}>
+      <h4>{location.name}</h4>
     </div>
   );
 };

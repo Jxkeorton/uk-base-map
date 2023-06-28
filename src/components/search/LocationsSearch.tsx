@@ -9,6 +9,7 @@ interface Location {
 function LocationsSearch() {
     const [searchQuery, setSearchQuery] = useState('')
     const [searchResults, setSearchResults] = useState<Location[]>([]);
+    const [loading, setLoading] = useState(false);
 
 
     const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,23 +19,29 @@ function LocationsSearch() {
     const handleSearchSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-          const response = await fetch(`http://localhost:3000/locations`);
-          const data = await response.json();
+
+            setLoading(true);
+
+            const response = await fetch(`http://localhost:3000/locations`);
+            const data = await response.json();
 
             const lowercaseSearchQuery = searchQuery.toLowerCase();
             const filteredResults = data.filter((location: Location) =>
             location.name.toLowerCase().includes(lowercaseSearchQuery)
-            );
+            ).slice(0, 5);;
 
         setSearchResults(filteredResults);
+        setSearchQuery('')
+        setLoading(false);
         } catch (error) {
           console.error('Error fetching search results:', error);
+          setLoading(false)
         }
       };
 
     return (
         <>
-          <form onSubmit={handleSearchSubmit} className='profile'>
+          <form onSubmit={handleSearchSubmit} className='searchBar'>
             <input
               type="text"
               value={searchQuery}
@@ -43,11 +50,17 @@ function LocationsSearch() {
             />
             <button type="submit">Search</button>
           </form>
-            <ul>
-                {searchResults.map((location) => (
-                <LocationsResultsCard key={location.id} location={location} />
-                ))}
-            </ul>
+            {loading ? (
+                <p>Loading...</p> 
+            ) : (
+                <div className='resultsList'>
+                    <ul>
+                        {searchResults.map((location) => (
+                            <LocationsResultsCard key={location.id} location={location} />
+                        ))}
+                    </ul>
+                </div>
+            )}
         </>
       );
     };
