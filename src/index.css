@@ -1,3 +1,10 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -21,70 +28,86 @@ body {
 
 /* Header/navbar CSS */
 
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-}
-
-.h-ul {
+header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: black;
-}
-
-.h-li {
-  text-align: center;
-  font-weight: bold;
-}
-
-.h-a {
-  display: block;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 2rem;
+  background-color: #333;
   color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  transition: 0.4s;
-}
-
-.h-a:hover {
-  color: #df9c38;
-  cursor: pointer;
-}
-
-.h-li:nth-child(2) {
-  margin-left: auto;
+  z-index: 100;
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  right: 0; 
 }
 
 .header-img {
-  height: 40px;
-  width: 40px;
-  padding: 14px 16px;
+  height: 50px;
 }
 
-.profile-link {
+nav p {
+  margin: 0 2rem;
+  color: white;
+  display: inline;
   font-weight: bold;
-  margin-right: 50px;
 }
 
+nav p:hover {
+  color:#c57e2e;
+  cursor: pointer;
+}
 
-  @media screen and (max-width: 600px) {
-    .h-ul .h-li {
-        float: none;
-    }
-    .h-ul {
-        height: auto;
-    }
-    .h-li .h-a {
-        padding: 14px 16px;
-    }
+header .nav-btn {
+  padding: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 1.8rem;
+}
+
+@media screen and (max-width: 1024px){
+  header .nav-btn {
+    visibility: visible;
+    opacity: 1;
   }
+
+  header nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: #333;
+    transition: 1s;
+    transform: translateY(-100vh);
+  }
+
+  header .responsive_nav {
+    transform: none;
+  }
+
+  nav .nav-close-btn {
+    position:absolute;
+    top: 2rem;
+    right:2rem;
+  }
+
+  nav a {
+    font-size: 1.5rem;
+  }
+}
+
   
   /* Footer CSS */
 
