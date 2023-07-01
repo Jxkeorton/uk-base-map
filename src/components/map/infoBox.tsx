@@ -1,20 +1,23 @@
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from '../../firebase.config';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-interface Locations {
-    info: any;
-  }
+interface InfoBoxProps {
+  info: {
+    id: string;
+    name: string;
+    coordinates: [number, number];
+  };
+}
 
-const InfoBox: React.FC<Locations>  = ({ info }) => {
+const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
   const [isSaved, setIsSaved] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if the user is logged in
     const checkUserLoggedIn = () => {
       const auth = getAuth();
       const currentUser = auth.currentUser;
@@ -25,7 +28,6 @@ const InfoBox: React.FC<Locations>  = ({ info }) => {
   }, []);
 
   useEffect(() => {
-    // Check if the location ID is already saved by the user
     const checkLocationSaved = async () => {
       try {
         const auth = getAuth();
@@ -39,11 +41,11 @@ const InfoBox: React.FC<Locations>  = ({ info }) => {
         const userDocRef = doc(db, 'users', userId);
         const userDocSnap = await getDoc(userDocRef);
         const userDocData = userDocSnap.data();
-        const locationIds: string[] = userDocData?.locationIds || [];
+        const { locationIds = [] } = userDocData || {};
 
         setIsSaved(locationIds.includes(info.id));
       } catch (error) {
-        console.error('Error checking if location saved: ', error);
+        console.error('Error checking if location saved:', error);
       }
     };
 
@@ -51,30 +53,25 @@ const InfoBox: React.FC<Locations>  = ({ info }) => {
   }, [info.id]);
 
   const onClick = async () => {
-    // Check if the user is logged in
     if (!isLoggedIn) {
       console.error('No authenticated user found');
       return;
     }
 
     try {
-      // Get the current user
       const auth = getAuth();
       const currentUser = auth.currentUser;
-      // null check
       if (!currentUser) {
         console.error('No authenticated user found');
         return;
       }
       const userId: string = currentUser.uid;
 
-      // Get the user document from the "users" collection
       const userDocRef = doc(db, 'users', userId);
       const userDocSnap = await getDoc(userDocRef);
 
-      // Update the location IDs array in the user document
       const userDocData = userDocSnap.data();
-      const locationIds: string[] = userDocData?.locationIds || [];
+      const { locationIds = [] } = userDocData || {};
 
       // checking if ID already exists
       if (locationIds.includes(info.id)) {
