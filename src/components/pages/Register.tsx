@@ -1,12 +1,13 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword, updateProfile, User as FirebaseUser  } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, updateProfile, User as FirebaseUser } from 'firebase/auth';
+import { getFirestore, doc, setDoc, serverTimestamp, collection, query, where, getDocs } from 'firebase/firestore';
 import app from '../../firebase.config';
-import { setDoc, doc, serverTimestamp, getFirestore } from 'firebase/firestore';
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import OAuth from '../OAuth';
-import PacmanLoader from 'react-spinners/PacmanLoader'
+import PacmanLoader from 'react-spinners/PacmanLoader';
+
 
 type FormData = {
   name: string;
@@ -49,9 +50,19 @@ function Register() {
       const auth = getAuth(app);
 
       setIsLoading(true)
+      const db = getFirestore(app)
+
+      // Check if display name already exists
+      const displayNamesRef = collection(db, 'users');
+      const querySnapshot = await getDocs(query(displayNamesRef, where('name', '==', name)));
+
+    if (!querySnapshot.empty) {
+      toast.error('Username is already in use');
+      setIsLoading(false);
+      return;
+    }
 
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-
       const user: FirebaseUser | null = userCredential.user;
 
       if (auth.currentUser !== null) {
@@ -63,14 +74,18 @@ function Register() {
       const { password: _, ...formDataCopy } = formData;
       formDataCopy.timestamp = serverTimestamp();
 
-      const db = getFirestore(app);
+      
       await setDoc(doc(db, 'users', user.uid), formDataCopy);
       setIsLoading(false)
 
       navigate('/profile');
-    } catch (error) {
-      toast.error('something went wrong with registration');
-      setIsLoading(false)
+    } catch (error: any) {
+      if (error.code === 'auth/email-already-in-use') {
+        toast.error('Email address is already in use');
+      } else {
+        toast.error('Something went wrong with registration');
+      }
+      setIsLoading(false);
     }
   }
 
@@ -86,7 +101,7 @@ function Register() {
         <input
           type="text"
           className="log-in-input"
-          placeholder="Name"
+          placeholder="Username"
           id="name"
           value={name}
           onChange={onChange}

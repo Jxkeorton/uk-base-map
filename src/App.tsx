@@ -51,8 +51,6 @@ function App() {
   }, []);
     
 
-  console.log(eventData)
-
   const override: React.CSSProperties = {
     display: "flex",
     alignItems: "center",

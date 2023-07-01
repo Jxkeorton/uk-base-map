@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams  } from 'react-router-dom';
 import {  doc, getDoc, collection, updateDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 import { getAuth } from 'firebase/auth';
@@ -153,6 +153,11 @@ function Location() {
 
   return (
     <div className='LocationPageContainer'>
+
+    <Link to="/">
+      <button className='back-to-map-btn'>BACK TO MAP</button>
+    </Link>
+    
       {location ? (
         <>
           <h1>{location.name}</h1>
