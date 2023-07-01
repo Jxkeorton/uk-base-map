@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams  } from 'react-router-dom';
-import {  doc, getDoc, collection, updateDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, updateDoc, setDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 import { getAuth } from 'firebase/auth';
 import { PacmanLoader } from 'react-spinners';
 import LocationMap from '../pagecomponents/LocationMap'
 import { apiUrl } from '../../../env';
 import {toast} from 'react-toastify'
+import Filter from 'bad-words'
 
 interface Location {
   id: number;
@@ -38,11 +39,16 @@ function Location() {
 
   const params = useParams()
   const auth = getAuth();
+  const currentUser = auth.currentUser;
+  const collectionRef = collection(db, 'locations');
+  const locationRef = doc(collectionRef, params.locationId);
 
+  const filter = new Filter();
 
   // use effect to fetch location from json-server
 
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const response = await fetch(`${apiUrl}/${params.locationId}`);
@@ -74,6 +80,21 @@ function Location() {
     };
 
     fetchData();
+
+    // Set up Firestore listener for comments
+    const unsubscribe = onSnapshot(locationRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const locationData = docSnap.data() as MoreData;
+        setMoreData(locationData);
+        setComments(locationData.comments || []);
+      }
+    });
+
+    return () => {
+      // Clean up the listener on unmount
+      unsubscribe();
+    };
+
   }, [params.locationId]);
 
   // add comment 
@@ -170,26 +191,30 @@ function Location() {
         <div>
           <p><strong>Total:</strong> {location?.total}ft</p>
         </div>
-        <h4>Notes...</h4>
+        <h4>Notes</h4>
         <p className="notes">{moreData?.Notes}</p>
       </div>
 
       <div>
-        <h2>Comments</h2>
+        {comments.length > 0 ? (<h2>Comments</h2>) : (<h2>No comments yet</h2>)}
         <ul>
           {comments.map((comment, index) => (
             <li key={index}>
               <strong>{comment.displayName}: </strong>
-              {comment.comment}
+              {comment.comment ? filter.clean(comment.comment) : ''}
             </li>
           ))}
         </ul>
-        <input
-          type='text'
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button onClick={addComment}>Add Comment</button>
+        {currentUser && (
+        <div>
+          <input
+            type='text'
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+          <button onClick={addComment}>Add Comment</button>
+        </div>
+      )}
       </div>
 
     </div>

@@ -9,16 +9,16 @@ interface Props {
   location: Location;
 }
 
-const LocationsResultsCard: React.FC<Props> = ({ location }) => {
+const LocationsResultsCard: React.FC<Props> = ({ location: { id, name } }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/location/${location.id}`);
+    navigate(`/location/${id}`);
   };
 
   return (
     <div className="searchResults" onClick={handleClick}>
-      <h4>{location.name}</h4>
+      <h4>{name}</h4>
     </div>
   );
 };
