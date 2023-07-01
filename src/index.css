@@ -240,24 +240,6 @@ header .nav-btn {
     }
   }
 
-   /* Loader */
-
-   .loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-   }
-
-   .loader img {
-    width: 400px;
-   }
-
-   .loader h1 {
-    margin-top: -100px;
-   }
-
    /* Info Box */
 
    .infoBox {
@@ -705,4 +687,6 @@ header .nav-btn {
   height: 500px;
   overflow-y: scroll;
   margin-top: 50px;
+  margin-left: 40px;
+  margin-right: 40px;
 }

@@ -2,9 +2,11 @@ import { useState, ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
 import { toast } from 'react-toastify'
+import { PacmanLoader } from 'react-spinners';
 
 function ForgotPassword() {
   const [email, setEmail] = useState<string>('')
+  const [isLoading, setIsLoading] = useState(false);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
 
@@ -13,9 +15,15 @@ function ForgotPassword() {
 
     try {
       const auth = getAuth()
+
+      setIsLoading(true);
+
       await sendPasswordResetEmail(auth, email)
+      setIsLoading(false);
+
       toast.success('Email was sent')
     } catch (error) {
+      setIsLoading(false);
       toast.error('Could not send reset email')
     }
   }
@@ -45,9 +53,12 @@ function ForgotPassword() {
         </Link>
 
         <div className="log-in-bar">
-          <button className="log-in-button">
-            Send Reset Link
-          </button>
+            {isLoading ? (
+              <PacmanLoader color="black"/>
+            ) : (
+              <button className="log-in-button">Send Reset Email</button>
+            )}
+
         </div>
       </form>
       </div>

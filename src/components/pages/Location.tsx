@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import {  doc, getDoc, collection, updateDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 import { getAuth } from 'firebase/auth';
+import { PacmanLoader } from 'react-spinners';
 
 interface Location {
   id: number;
@@ -137,8 +138,16 @@ function Location() {
     fetchFromFirebase()
   },[params.locationId])
 
+  const override: React.CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    width: "100vw",
+  };
+
   if(loading) {
-    return <p>Loading...</p>
+    return <PacmanLoader color="black" cssOverride={override} />
   }
 
   return (

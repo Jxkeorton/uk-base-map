@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SavedLocations from '../pagecomponents/SavedLocations';
 import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore';
 import { db } from '../../firebase.config';
+import { PacmanLoader } from 'react-spinners';
 
 interface Location {
   id: number;
@@ -61,10 +62,9 @@ function Profile() {
   }, [locations, fetchedData]);
 
   const onDelete = async (locationId: number) => {
-    // Perform the delete operation here, such as updating the Firestore document
+    
     try {
-      // Delete the location using the locationId
-      // Example code using Firestore
+      
       const currentUser = auth.currentUser;
       if (!currentUser) {
         console.error('No authenticated user found');
@@ -90,6 +90,14 @@ function Profile() {
   }
 
   console.log('filtered locations:', filteredLocations)
+
+  const override: React.CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    width: "100vw",
+  };
   
   return (
     <>
@@ -103,7 +111,7 @@ function Profile() {
           {filteredLocations.length > 0 ? 'Saved Locations' : 'Use the map to save locations' }
         </h2>
         {isLoading ? (
-          <p>Loading...</p>
+          <PacmanLoader color='black' cssOverride={override} />
         ) : (
           <SavedLocations data={filteredLocations} onDelete={onDelete} />
         )}

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg'
 import OAuth from '../OAuth'
+import PacmanLoader from 'react-spinners/PacmanLoader'
 
 function LogIn() {
   const [showPassword, setShowPassword] = useState(false)
@@ -12,6 +13,7 @@ function LogIn() {
     password: ''
   })
   const {email, password} = formData
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate()
 
@@ -29,14 +31,18 @@ function LogIn() {
     try {
     const auth = getAuth()
 
+    setIsLoading(true)
+
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
 
     if(userCredential.user) {
       navigate('/')
     }
+    setIsLoading(false)
       
     } catch (error) {
       toast.error('Bad user credentials')
+      setIsLoading(false)
     }
 
     
@@ -86,9 +92,12 @@ function LogIn() {
         </Link>
 
         <div className="log-in-bar">
+        {isLoading ? (
+              <PacmanLoader color="black"/>
+            ) : (
           <button className="log-in-button">
             Log In
-          </button>
+          </button> )}
         </div>
       </form>
 

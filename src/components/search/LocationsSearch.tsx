@@ -1,5 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import LocationsResultsCard from './LocationsResultsCard';
+import { PacmanLoader } from 'react-spinners';
 
 interface Location {
     id: number;
@@ -39,6 +40,14 @@ function LocationsSearch() {
         }
       };
 
+      const override: React.CSSProperties = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        width: "100vw",
+      };
+
     return (
         <>
           <form onSubmit={handleSearchSubmit} className='searchBar'>
@@ -51,7 +60,7 @@ function LocationsSearch() {
             <button type="submit">Search</button>
           </form>
             {loading ? (
-                <p>Loading...</p> 
+                <PacmanLoader color="black" cssOverride={override} />
             ) : (
                 <div className='resultsList'>
                     <ul>

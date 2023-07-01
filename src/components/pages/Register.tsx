@@ -6,6 +6,7 @@ import { setDoc, doc, serverTimestamp, getFirestore } from 'firebase/firestore';
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
 import { toast } from 'react-toastify'
 import OAuth from '../OAuth';
+import PacmanLoader from 'react-spinners/PacmanLoader'
 
 type FormData = {
   name: string;
@@ -23,6 +24,7 @@ function Register() {
     timestamp: null,
   });
   const { email, password, name } = formData;
+  const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -46,6 +48,8 @@ function Register() {
     try {
       const auth = getAuth(app);
 
+      setIsLoading(true)
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
       const user: FirebaseUser | null = userCredential.user;
@@ -61,10 +65,12 @@ function Register() {
 
       const db = getFirestore(app);
       await setDoc(doc(db, 'users', user.uid), formDataCopy);
+      setIsLoading(false)
 
-      navigate('/');
+      navigate('/profile');
     } catch (error) {
       toast.error('something went wrong with registration');
+      setIsLoading(false)
     }
   }
 
@@ -119,9 +125,12 @@ function Register() {
         </Link>
 
         <div className="log-in-bar">
+            {isLoading ? (
+              <PacmanLoader color="black"/>
+            ) : (
           <button className="log-in-button">
             Register
-          </button>
+          </button>)}
         </div>
       </form>
 

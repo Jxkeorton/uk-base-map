@@ -4,6 +4,7 @@ import InfoBox from './infoBox';
 import { useState } from 'react';
 
 
+
 interface Locations {
   eventData: any;
 }

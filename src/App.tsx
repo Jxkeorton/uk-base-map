@@ -12,6 +12,7 @@ import Profile from './components/pages/Profile'
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './components/PrivateRoute'
 import Search from './components/search/Search'
+import { PacmanLoader } from 'react-spinners';
 
 interface Locations {
   id: number;
@@ -52,8 +53,16 @@ function App() {
 
   console.log(eventData)
 
+  const override: React.CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    width: "100vw",
+  };
+
   if(loading) {
-    return <p>Loading...</p>
+    return <PacmanLoader color="black" cssOverride={override} />
   }
   return (
     <>
