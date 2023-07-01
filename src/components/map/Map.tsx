@@ -4,18 +4,18 @@ import InfoBox from './infoBox'
 import { useState } from 'react';
 import { googleKey } from '../../../env';
 
-interface Location {
+interface Locations {
   id: string;
   name: string;
   coordinates: [number, number];
 }
 
 interface MapProps {
-  eventData: Location[];
+  eventData: Locations[];
 }
 
 const Map: React.FC<MapProps> = ({ eventData }) => {
-  const [infoBox, setInfoBox] = useState<Location | null>(null);
+  const [infoBox, setInfoBox] = useState<Locations | null>(null);
 
   const markers = eventData.map((location) => {
     const { id, coordinates } = location;

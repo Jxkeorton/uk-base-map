@@ -95,11 +95,9 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
 
   return (
     <div className="infoBox" >
-      <h2>Location</h2>
+      <h2><strong>{ info.name }</strong></h2>
       <ul>
-        <li>ID: <strong>{ info.id }</strong></li>
-        <li>TITLE: <strong>{ info.name }</strong></li>
-        <li>COORDINATES: <strong>{ info.coordinates[0] }, {info.coordinates[1]}</strong></li>
+        <li><strong>{ info.coordinates[0] }, {info.coordinates[1]}</strong></li>
       </ul>
       <div className='buttonsContainer'>
         {isLoggedIn && (
@@ -109,7 +107,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
             <button onClick={onClick} className='infoBox-button-save'><p>Save</p></button>
         )}
         <Link to={`/location/${info.id}`} >
-          <button className='infoBoxMore' ><p>More</p></button>
+          <button className='infoBoxMore' ><p>Details</p></button>
         </Link>
       </div>
     </div>

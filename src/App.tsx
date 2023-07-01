@@ -17,7 +17,7 @@ import {toast} from 'react-toastify'
 import { apiUrl } from '../env';
 
 interface Locations {
-  id: number;
+  id: string;
   name: string;
   coordinates: [number, number];
   rockdrop: string;
@@ -83,6 +83,7 @@ function App() {
         </Routes>
         <Header />
       </Router>
+      
 
       <ToastContainer
         position="top-right"
