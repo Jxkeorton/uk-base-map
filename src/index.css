@@ -103,6 +103,10 @@ header .nav-btn {
     right:2rem;
   }
 
+  .nav-btn:hover {
+    color:#c57e2e;
+  }
+
   nav a {
     font-size: 1.5rem;
   }
@@ -131,6 +135,11 @@ header .nav-btn {
     color: white;
     font-size: 12px;
     font-weight: bold;
+  }
+
+  .footer-img {
+    height:90px;
+    margin-left: 30px;
   }
   
   /* Show full footer on hover */
@@ -352,6 +361,9 @@ header .nav-btn {
 }
 
 .log-in-header {
+  display:flex;
+  justify-content: center; 
+  align-items: center; 
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -362,6 +374,7 @@ header .nav-btn {
   font-weight: bolder;
   color: #df9c38;
   text-shadow: 1px 1px 0 black;
+  margin-top:150px;
 }
 
 .log-in-form {
@@ -447,29 +460,19 @@ header .nav-btn {
 .profile {
   display: flex;
   flex-direction: column;
-  margin-top: 300px;
-  align-items:center;
-  justify-content: center;
-  height: 40vh;
-}
-
-.profile-header {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  align-items: center;
+  margin-top: 100px;
 }
 
 .page-header {
-  font-size: 3rem;
-  font-weight: bolder;
-  color: #df9c38;
-  text-shadow: 1px 1px 0 black;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .logOut {
-  width: 100%;
+  width: 120px;
   height: 40px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   background-color: #df9c38;
   border: none;
   border-radius: 4px;
@@ -481,6 +484,22 @@ header .nav-btn {
 .logOut:hover {
   background-color: #c57e2e;
 }
+
+.profile-info {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.profile-info h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
 
 /* google auth button styles */
 .socialLogin {
@@ -510,30 +529,37 @@ header .nav-btn {
 
 /* Saved Locations cards for profile */
 
+.location-cards {
+  height:500px;
+  overflow-y: scroll;
+}
+
 .card {
-  border: 5px solid black;
+  border: 2px solid black;
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 10px;
   margin-right: 30px;
+  margin-left: 30px;
   background-color: #f9f9f9;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.card-container {
-  display: grid;
-  margin-top: 100px;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 10px;
-  overflow-y: auto; 
-  max-height: 85vh; 
+.Saved-locations-h2 {
+  margin-left: 30px;
 }
 
 .locationLink {
-  display: contents;
+  color:black;
+  text-decoration: none;
 }
 
 .locationLink:hover {
-  display: block;
+  color:white;
+}
+
+.card:hover {
+  background-color: #c87b1a;
 }
 
 .cardButton {
@@ -541,6 +567,7 @@ header .nav-btn {
   background-color: #df9c38;
   font-weight: bold;
   border-radius: 10px;
+  float: right;
 }
 
 .card button:hover {
@@ -551,28 +578,82 @@ header .nav-btn {
 
 /* Location page */
 
-.locationImage {
-  width: 400px;
-  height: 400px;
-}
-
 .LocationPageContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin-top: 90px;
-  padding-top: 90px;
-  align-items:center;
-  justify-content: center;
-  height: 550px;
-  overflow-y: scroll;
+  margin-bottom: 100px;
+  height: 78vh;
+  overflow-y: auto;
 }
 
-.notes {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  border-radius: 4px;
-  opacity: 0.8;
+.LocationPageContainer h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
+
+.LocationPageContainer p {
+  margin-bottom: 10px;
+}
+
+.LocationPageContainer .locationImage {
+  width: 300px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.LocationPageContainer .notes-container {
+  margin-bottom: 10px;
+}
+
+.LocationPageContainer .notes-container h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.LocationPageContainer .notes {
+  margin-bottom: 10px;
+}
+
+.LocationPageContainer h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.LocationPageContainer ul {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+
+.LocationPageContainer li {
+  margin-bottom: 5px;
+}
+
+.LocationPageContainer input[type='text'] {
+  width: 300px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.LocationPageContainer button {
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #df9c38;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.LocationPageContainer button:hover {
+  background-color: #c57e2e;
+}
+
 
 /* Search results */
 .searchBar {

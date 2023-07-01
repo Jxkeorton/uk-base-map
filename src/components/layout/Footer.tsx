@@ -1,9 +1,11 @@
+import Logo from '../../assets/png/MMB small logo.png'
+
 const Footer = () => {
   return (
     <div className="footer">
     <div className="contain">
         <div className="col">
-        <h1>LOGO HERE</h1>
+        <img src={Logo} alt='mountain man base logo' className='footer-img'/>
         <ul>
             <li>© 2023 by Apex</li>
         </ul>

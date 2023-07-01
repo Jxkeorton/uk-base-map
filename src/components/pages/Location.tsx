@@ -154,10 +154,10 @@ function Location() {
 
       <div className="notes-container">
         <div>
-          <p>Rockdrop: {location?.rockdrop}ft</p>
+          <p><strong>Rockdrop:</strong> {location?.rockdrop}ft</p>
         </div>
         <div>
-          <p>Total: {location?.total}ft</p>
+          <p><strong>Total:</strong> {location?.total}ft</p>
         </div>
         <h4>Notes...</h4>
         <p className="notes">{moreData?.Notes}</p>

@@ -17,11 +17,11 @@ const SavedLocations: React.FC<Props> = ({ data, onDelete }) => {
 
   return (
     
-      <>
+      <div className='location-cards'>
         {data.map((locationData: Location) =>(
           <div key={locationData.id} className='card'>
             <Link to={`/location/${locationData.id}`} className='locationLink' >
-              <div  >
+              <div>
                 <h3>{locationData.name}</h3>
                 <p>Coordinates: {locationData.coordinates.join(', ')}</p>
               </div>
@@ -29,7 +29,7 @@ const SavedLocations: React.FC<Props> = ({ data, onDelete }) => {
             <button onClick={() => onDelete(locationData.id)} className='cardButton'><p>Unsave</p></button>
           </div>
         ))}
-      </>
+      </div>
     
     
   );

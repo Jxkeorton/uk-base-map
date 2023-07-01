@@ -89,41 +89,24 @@ function Profile() {
     navigate('/');
   }
 
-  const name: string | null = auth.currentUser?.displayName || null;
-  const email: string | null = auth.currentUser?.email || null
-
   console.log('filtered locations:', filteredLocations)
   
   return (
     <>
-    <div className='card-container' >
       <div className='profile' >
-        <header className="profile-header">
           <p className='page-header'>My Profile</p>
-          <button type='button' className='logOut' onClick={onLogout} >
+        <button type='button' className='logOut' onClick={onLogout} >
             Logout
           </button>
-        </header>
-        {name && (
-          <div className="profile-info">
-            <h4>You are logged in as...</h4>
-            <p>Name: {name}</p>
-            <p>Email: {email}</p>
-          </div>
-        )}
       </div>
-      <div className='profile-right-side' >
-        <h2>
-          {filteredLocations.length > 0 ? 'Saved Locations' : 'Use the map to save locations...' }
+        <h2 className='Saved-locations-h2'>
+          {filteredLocations.length > 0 ? 'Saved Locations' : 'Use the map to save locations' }
         </h2>
         {isLoading ? (
           <p>Loading...</p>
         ) : (
           <SavedLocations data={filteredLocations} onDelete={onDelete} />
         )}
-      </div>
-      
-    </div>  
     </>
   )
 }

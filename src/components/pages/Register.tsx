@@ -37,6 +37,12 @@ function Register() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
     try {
       const auth = getAuth(app);
 
@@ -109,7 +115,7 @@ function Register() {
           /> 
         </div>
         <Link to='/log-in' className='log-in-register-link' >
-        Alreday have an account ? Log In
+        Already have an account ? Log In
         </Link>
 
         <div className="log-in-bar">
