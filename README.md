@@ -19,8 +19,9 @@ To run the application locally, follow these steps:
 2. Navigate to the project directory: `cd uk-base-map`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm run dev`
-5. Start the json-server: `npm run start`
-6. Open your web browser and visit: `http://localhost:3000`
+5. Navigate to the project directory: `cd json-server`
+6. Start the json-server: `npm run start`
+7. Open your web browser and visit: `http://localhost:3000`
 
 Note: Make sure you have Node.js and npm (Node Package Manager) installed on your machine before proceeding with the installation.
 
