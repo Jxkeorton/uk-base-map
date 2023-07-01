@@ -1,6 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import LocationsResultsCard from './LocationsResultsCard';
 import { PacmanLoader } from 'react-spinners';
+import { apiUrl } from '../../../env';
 
 interface Location {
     id: number;
@@ -23,7 +24,7 @@ function LocationsSearch() {
 
             setLoading(true);
 
-            const response = await fetch(`http://localhost:3000/locations`);
+            const response = await fetch(apiUrl);
             const data = await response.json();
 
             const lowercaseSearchQuery = searchQuery.toLowerCase();

@@ -5,6 +5,7 @@ import SavedLocations from '../pagecomponents/SavedLocations';
 import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 import { PacmanLoader } from 'react-spinners';
+import { apiUrl } from '../../../env';
 
 interface Location {
   id: number;
@@ -40,7 +41,7 @@ function Profile() {
 
           setLocations(locationIds)
 
-          const response = await fetch('http://localhost:3000/locations');
+          const response = await fetch(apiUrl);
           const data: Location[] = await response.json();
 
           setFetchedData(data)

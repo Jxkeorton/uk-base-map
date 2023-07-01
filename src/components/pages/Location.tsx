@@ -5,6 +5,7 @@ import { db } from '../../firebase.config';
 import { getAuth } from 'firebase/auth';
 import { PacmanLoader } from 'react-spinners';
 import LocationMap from '../pagecomponents/LocationMap'
+import { apiUrl } from '../../../env';
 
 interface Location {
   id: number;
@@ -41,24 +42,38 @@ function Location() {
   // use effect to fetch location from json-server
 
   useEffect(() => {
-    const fetchLocation = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/locations/${params.locationId}`);
+        const response = await fetch(`${apiUrl}/${params.locationId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch location');
         }
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         setLocation(data);
-        setLoading(false);
       } catch (error) {
         console.error('Error fetching location:', error);
-        setLoading(false);
       }
+
+      try {
+        const collectionRef = collection(db, 'locations');
+        const docRef = doc(collectionRef, params.locationId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const locationData = docSnap.data() as MoreData;
+          setMoreData(locationData);
+          setComments(locationData.comments || []);
+        }
+      } catch (error) {
+        console.error('Error fetching additional data:', error);
+      }
+
+      setLoading(false);
     };
 
-    fetchLocation()
-  },[params.locationId])
+    fetchData();
+  }, [params.locationId]);
 
   // add comment 
 
@@ -119,26 +134,7 @@ function Location() {
       console.error('Error adding comment:', error);
     }
   };
-
-  // use effect to fetch same location from firebase for the images/comments and more info
-
-  useEffect(() => {
-    const fetchFromFirebase = async () => {
-      const collectionRef = collection(db, 'locations');
-      const docRef = doc(collectionRef, params.locationId);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setMoreData(docSnap.data() as MoreData)
-        const locationData = docSnap.data() as MoreData
-        setComments(locationData.comments || [])
-        setLoading(false)
-    }
-  }
-
-    fetchFromFirebase()
-  },[params.locationId])
-
+  
   const override: React.CSSProperties = {
     display: "flex",
     alignItems: "center",
@@ -164,7 +160,7 @@ function Location() {
           <p>{location.coordinates.join(', ')}</p>
           <LocationMap text={`${location.id + 1}`} center={{ lat: location?.coordinates[0], lng: location?.coordinates[1] }} zoom={15}/>
         </> 
-      ):( <p>Could not load Loaction</p>)}
+      ):( <p>Could not load Location</p>)}
       
       <div className="notes-container">
         <div>

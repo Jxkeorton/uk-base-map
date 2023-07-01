@@ -13,6 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './components/PrivateRoute'
 import Search from './components/search/Search'
 import { PacmanLoader } from 'react-spinners';
+import {toast} from 'react-toastify'
+import { apiUrl } from '../env';
 
 interface Locations {
   id: number;
@@ -23,14 +25,13 @@ interface Locations {
 
 const fetchData = async (): Promise<Locations[]> => {
   try {
-    const response = await fetch('http://localhost:3000/locations'); 
+    const response = await fetch(apiUrl);
     const data = await response.json();
     const locations: Locations[] = data;
-
     return locations;
   } catch (error) {
     console.error('Error:', error);
-    return [];
+    throw error;
   }
 };
 
@@ -40,11 +41,15 @@ function App() {
 
   useEffect(() => {
     const fetchLocations = async () => {
-      setLoading(true)
-      const locations = await fetchData();
-
-      setEventData(locations);
-      setLoading(false);
+      setLoading(true);
+      try {
+        const locations = await fetchData();
+        setEventData(locations);
+      } catch (error) {
+        toast.error('Error fetching locations');
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchLocations();
