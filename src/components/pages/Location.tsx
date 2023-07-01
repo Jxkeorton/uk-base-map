@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth';
 import { PacmanLoader } from 'react-spinners';
 import LocationMap from '../pagecomponents/LocationMap'
 import { apiUrl } from '../../../env';
+import {toast} from 'react-toastify'
 
 interface Location {
   id: number;
@@ -52,7 +53,7 @@ function Location() {
         console.log(data);
         setLocation(data);
       } catch (error) {
-        console.error('Error fetching location:', error);
+        toast.error('Error fetching location:');
       }
 
       try {
@@ -66,7 +67,7 @@ function Location() {
           setComments(locationData.comments || []);
         }
       } catch (error) {
-        console.error('Error fetching additional data:', error);
+        toast.error('Error fetching additional data:');
       }
 
       setLoading(false);
@@ -131,7 +132,7 @@ function Location() {
         setComment('');
       }
     } catch (error) {
-      console.error('Error adding comment:', error);
+      toast.error('Error adding comment:');
     }
   };
   

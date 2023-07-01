@@ -1,5 +1,6 @@
 import GoogleMapReact, { MapOptions } from 'google-map-react';
 import Marker from '../map/Marker';
+import { googleKey } from '../../../env';
 
 interface MapProps {
     center: { lat: number; lng: number };
@@ -14,9 +15,9 @@ const Map: React.FC<MapProps> = ({ center, zoom, text }) => {
       };
   
   return (
-    <div style={{ height: '400px', width: '400px' }}>
+    <div className='LocationPageMap' >
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyA5YDarjMw4UAUSVCIrBX1PJwP14l9nqSg' }}
+        bootstrapURLKeys={{ key: googleKey }}
         defaultCenter={center}
         defaultZoom={zoom}
         options={mapOptions}

@@ -22,11 +22,18 @@ function ForgotPassword() {
       setIsLoading(false);
 
       toast.success('Email was sent')
-    } catch (error) {
+    } catch (error: any) {
       setIsLoading(false);
-      toast.error('Could not send reset email')
+      if (error.code === 'auth/invalid-email') {
+        toast.error('Invalid email. Please provide a valid email address.');
+      } else if (error.code === 'auth/user-not-found') {
+        toast.error('User not found. Please check the provided email address.');
+      } else {
+        toast.error('Could not send reset email. Please try again later.');
+      }
     }
-  }
+  };
+  
 
   return (
     <>

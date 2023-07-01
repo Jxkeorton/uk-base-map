@@ -48,7 +48,6 @@ function Register() {
 
     try {
       const auth = getAuth(app);
-
       setIsLoading(true)
       const db = getFirestore(app)
 
@@ -90,8 +89,7 @@ function Register() {
   }
 
   return (
-    <>
-      <div className="log-in-container">
+      <main className="log-in-container">
       <header className="log-in-header">
         <p className='log-in-title' >Register</p>
       </header>
@@ -151,8 +149,7 @@ function Register() {
 
       <OAuth />
 
-      </div>
-    </>
+      </main>
   )
 }
 

@@ -6,6 +6,7 @@ import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 import { PacmanLoader } from 'react-spinners';
 import { apiUrl } from '../../../env';
+import {toast} from 'react-toastify'
 
 interface Location {
   id: number;
@@ -28,7 +29,7 @@ function Profile() {
       try {
           const currentUser = auth.currentUser;
           if (!currentUser) {
-          console.error('No authenticated user found');
+          toast.error('No authenticated user found');
           return;
           }
           const userId: string = currentUser.uid;
@@ -48,7 +49,7 @@ function Profile() {
           console.log('Fetched Data:', data);
 
       } catch (error) {
-        console.error('Could not get locations', error);
+        toast.error('Could not get locations');
       }
         setIsLoading(false);
       };
@@ -68,7 +69,7 @@ function Profile() {
       
       const currentUser = auth.currentUser;
       if (!currentUser) {
-        console.error('No authenticated user found');
+        toast.error('No authenticated user found');
         return;
       }
       const userId: string = currentUser.uid;
@@ -76,12 +77,12 @@ function Profile() {
       await updateDoc(userDocRef, {
         locationIds: arrayRemove(locationId)
       });
-      console.log('Location deleted successfully');
+      toast.success('Location deleted successfully');
   
       // Update the filteredLocations state by removing the deleted location
       setFilteredLocations(filteredLocations.filter((location) => location.id !== locationId));
     } catch (error) {
-      console.error('Could not delete location:', error);
+      toast.error('Could not delete location:');
     }
   };
 

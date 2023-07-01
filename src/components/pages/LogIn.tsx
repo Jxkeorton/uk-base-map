@@ -14,6 +14,36 @@ function LogIn() {
   })
   const {email, password} = formData
   const [isLoading, setIsLoading] = useState(false);
+  const [formErrors, setFormErrors] = useState({
+    emailError: '',
+    passwordError: '',
+  });
+
+  const validateForm = () => {
+    let isValid = true;
+    const errors = {
+      emailError: '',
+      passwordError: '',
+    };
+  
+    // Validate email
+    if (!email) {
+      isValid = false;
+      errors.emailError = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      isValid = false;
+      errors.emailError = 'Email is invalid';
+    }
+  
+    // Validate password
+    if (!password) {
+      isValid = false;
+      errors.passwordError = 'Password is required';
+    }
+  
+    setFormErrors(errors);
+    return isValid;
+  };
 
   const navigate = useNavigate()
 
@@ -28,6 +58,10 @@ function LogIn() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
+    if (!validateForm()) {
+      return;
+    }
+
     try {
     const auth = getAuth()
 
@@ -40,13 +74,18 @@ function LogIn() {
     }
     setIsLoading(false)
       
-    } catch (error) {
-      toast.error('Bad user credentials')
-      setIsLoading(false)
+    } catch (error:any) {
+      const errorCode = error.code;
+
+    if (errorCode === 'auth/user-not-found') {
+      toast.error('Email not registered');
+    } else {
+      toast.error('Bad user credentials');
     }
 
-    
-  }
+    setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -56,33 +95,35 @@ function LogIn() {
       </header>
 
       <form className="log-in-form" onSubmit={onSubmit} >
-        <div className='input-wrapper'>
+      <div className='input-wrapper'>
         <input
-          type="email"
-          className="log-in-input"
-          placeholder="Email"
-          id="email"
+          type='email'
+          className='log-in-input'
+          placeholder='Email'
+          id='email'
           value={email}
           onChange={onChange}
         />
-        </div>
-    
-        <div className="log-in-password">
-          <input
-            type={showPassword ? 'text' : 'password'}
-            className="log-in-input"
-            placeholder="Password"
-            id="password"
-            value={password}
-            onChange={onChange}
-          />
-          <img
-            src={visibilityIcon}
-            alt="show password"
-            className="log-in-show-password"
-            onClick={() => setShowPassword((prevState) => !prevState)}
-          />
-        </div>
+        {formErrors.emailError && <span className='error-message'>{formErrors.emailError}</span>}
+      </div>
+
+      <div className='log-in-password'>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          className='log-in-input'
+          placeholder='Password'
+          id='password'
+          value={password}
+          onChange={onChange}
+        />
+        {formErrors.passwordError && <span className='error-message'>{formErrors.passwordError}</span>}
+        <img
+          src={visibilityIcon}
+          alt='show password'
+          className='log-in-show-password'
+          onClick={() => setShowPassword((prevState) => !prevState)}
+        />
+      </div>
 
         <Link to="/forgot-password" className="log-in-forgot-password">
           Forgot Password

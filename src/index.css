@@ -636,6 +636,11 @@ header .nav-btn {
   background-color: #c57e2e;
 }
 
+.LocationPageMap {
+  height:400px;
+  width:400px;
+}
+
 
 /* Search results */
 .searchBar {
