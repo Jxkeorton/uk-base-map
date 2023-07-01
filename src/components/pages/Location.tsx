@@ -4,6 +4,7 @@ import {  doc, getDoc, collection, updateDoc, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase.config';
 import { getAuth } from 'firebase/auth';
 import { PacmanLoader } from 'react-spinners';
+import LocationMap from '../pagecomponents/LocationMap'
 
 interface Location {
   id: number;
@@ -152,15 +153,14 @@ function Location() {
 
   return (
     <div className='LocationPageContainer'>
-      <h1>{location?.name}</h1>
-      <p>{location?.coordinates.join(', ')}</p>
-    
-      {moreData ? (
-        <img className="locationImage" src={moreData.imageUrls[0]} alt="Location Image" />
-      ) : (
-        <p>No image available</p>
-      )}
-
+      {location ? (
+        <>
+          <h1>{location.name}</h1>
+          <p>{location.coordinates.join(', ')}</p>
+          <LocationMap text={`${location.id + 1}`} center={{ lat: location?.coordinates[0], lng: location?.coordinates[1] }} zoom={15}/>
+        </> 
+      ):( <p>Could not load Loaction</p>)}
+      
       <div className="notes-container">
         <div>
           <p><strong>Rockdrop:</strong> {location?.rockdrop}ft</p>

@@ -10,7 +10,7 @@ interface MarkerProps {
 
 const Marker: React.FC<MarkerProps> = ({onClick, highlighted}) => (
     <div 
-      onClick={onClick}
+      onClick={() => onClick({ name: "", coordinates: [0, 0] })}
       className={`custom-marker ${highlighted ? 'highlighted' : ''}`}
     >
       <MountainIcon />
