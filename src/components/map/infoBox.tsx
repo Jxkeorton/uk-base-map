@@ -11,10 +11,11 @@ interface InfoBoxProps {
     name: string;
     coordinates: [number, number];
   };
+  onLocationSaved: (locationId: string, isSaved: boolean) => void;
 }
 
-const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
-  const [isSaved, setIsSaved] = useState(false);
+const InfoBox: React.FC<InfoBoxProps> = ({ info, onLocationSaved }) => {
+  const [Saved, setSaved] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
         const userDocData = userDocSnap.data();
         const { locationIds = [] } = userDocData || {};
 
-        setIsSaved(locationIds.includes(info.id));
+        setSaved(locationIds.includes(info.id));
       } catch (error) {
         console.error('Error checking if location saved:', error);
       }
@@ -79,13 +80,15 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
         await updateDoc(userDocRef, { locationIds: arrayRemove(info.id) });
         console.log('Location ID removed from user document');
         toast.success('Location removed')
-        setIsSaved(false)
+        setSaved(false)
+        onLocationSaved(info.id, false);
       } else {
         // Add the location ID to the array
         await setDoc(userDocRef, { locationIds: arrayUnion(info.id) }, {merge:true});
         console.log('Location ID added to user document');
         toast.success('Location Saved')
-        setIsSaved(true)
+        setSaved(true)
+        onLocationSaved(info.id, true);
       }
     } catch (error) {
         toast.error('Could not toggle Location');
@@ -110,7 +113,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
       </ul>
       <div className='buttonsContainer'>
         {isLoggedIn && (
-          isSaved ? 
+          Saved ? 
             <button onClick={onClick} className='infoBox-button-unsave'><p>Unsave</p></button>
             :
             <button onClick={onClick} className='infoBox-button-save'><p>Save</p></button>

@@ -328,6 +328,10 @@ header .nav-btn {
   background-color: #df9c38;
 }
 
+.custom-marker.saved {
+  background-color: blue;
+}
+
 /* Marker inner content */
 .custom-marker div {
   position: absolute;

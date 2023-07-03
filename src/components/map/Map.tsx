@@ -1,8 +1,11 @@
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import InfoBox from './infoBox'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { googleKey } from '../../../env';
+import { doc, getDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { db } from '../../firebase.config';
 
 interface Locations {
   id: string;
@@ -16,9 +19,49 @@ interface MapProps {
 
 const Map: React.FC<MapProps> = ({ eventData }) => {
   const [infoBox, setInfoBox] = useState<Locations | null>(null);
+  const [isSaved, setIsSaved] = useState<string[]>([])
+
+  useEffect(() => {
+    const checkLocationSaved = async () => {
+      try {
+        const auth = getAuth();
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+          console.error('No authenticated user found');
+          return;
+        }
+        const userId: string = currentUser.uid;
+
+        const userDocRef = doc(db, 'users', userId);
+        const userDocSnap = await getDoc(userDocRef);
+        const userDocData = userDocSnap.data();
+        const { locationIds = [] } = userDocData || {};
+
+        setIsSaved(locationIds);
+      } catch (error) {
+        console.error('Error checking if location saved:', error);
+      }
+    };
+
+    checkLocationSaved();
+  }, []);
+
+  const handleLocationSaved = (locationId: string, isSaved: boolean) => {
+    setIsSaved((prevIsSaved) => {
+      if (isSaved) {
+        // Add the location ID to the array
+        return [...prevIsSaved, locationId];
+      } else {
+        // Remove the location ID from the array
+        return prevIsSaved.filter((id) => id !== locationId);
+      }
+    });
+  };
+
 
   const markers = eventData.map((location) => {
     const { id, coordinates } = location;
+    const isMarkerSaved = isSaved.includes(id);
     return (
       <Marker
         key={id}
@@ -27,6 +70,7 @@ const Map: React.FC<MapProps> = ({ eventData }) => {
         text={`${id + 1}`}
         onClick={() => setInfoBox(location)}
         highlighted={infoBox?.id === id}
+        isSaved={isMarkerSaved}
       />
     );
   });
@@ -40,7 +84,7 @@ const Map: React.FC<MapProps> = ({ eventData }) => {
       >
         {markers}
       </GoogleMapReact>
-      {infoBox && <InfoBox info={infoBox} />}
+      {infoBox && <InfoBox info={infoBox} onLocationSaved={handleLocationSaved} />}
     </div>
   );
 };
