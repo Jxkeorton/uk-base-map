@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams  } from 'react-router-dom';
+import { useParams  } from 'react-router-dom';
 import { doc, getDoc, collection, updateDoc, setDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 import { getAuth } from 'firebase/auth';
@@ -15,6 +15,18 @@ interface Location {
   coordinates: [number, number];
   rockdrop: string;
   total: string;
+  details: {
+    rockdrop: string;
+    total: string;
+    notes: string;
+    access: string;
+    anchor: string;
+    cliffAspect: string;
+  };
+  openedBy: {
+    name: string;
+    date: string;
+  };
 }
 
 interface Comment {
@@ -170,54 +182,105 @@ function Location() {
   }
 
   return (
-    <div className='LocationPageContainer'>
+  <div className="container">
+    <h1 className="title">{location?.name.toUpperCase()}</h1>
+    <p className='paragraph'><strong>Opened by: </strong>
+    {location?.openedBy.name ? (
+          <span className="value">{location.openedBy.name.toUpperCase()}</span>
+          ) : (
+          <span className="value">?</span>
+          )}
+    </p>
+    <p className='paragraph'><strong>Date: </strong> 
+    {location?.openedBy.date ? (
+          <span className="value">{location.openedBy.date}</span>
+          ) : (
+          <span className="value">?</span>
+          )}
+    </p>
 
-    <Link to="/">
-      <button className='back-to-map-btn'>BACK TO MAP</button>
-    </Link>
+    {location ? (<LocationMap
+      text={`${location.id + 1}`}
+      center={{ lat: location.coordinates[0], lng: location.coordinates[1] }}
+      zoom={15}
+    />):(<h1>Could Not Load Location</h1>) }
+
+    <p className="paragraph coordinates">{location?.coordinates.join(', ')}</p>
     
-      {location ? (
-        <>
-          <h1>{location.name}</h1>
-          <p>{location.coordinates.join(', ')}</p>
-          <LocationMap text={`${location.id + 1}`} center={{ lat: location?.coordinates[0], lng: location?.coordinates[1] }} zoom={15}/>
-        </> 
-      ):( <p>Could not load Location</p>)}
-      
-      <div className="notes-container">
-        <div>
-          <p><strong>Rockdrop:</strong> {location?.rockdrop}ft</p>
-        </div>
-        <div>
-          <p><strong>Total:</strong> {location?.total}ft</p>
-        </div>
-        <h4>Notes</h4>
-        <p className="notes">{moreData?.Notes}</p>
-      </div>
 
-      <div>
-        {comments.length > 0 ? (<h2>Comments</h2>) : (<h2>No comments yet</h2>)}
-        <ul>
-          {comments.map((comment, index) => (
-            <li key={index}>
-              <strong>{comment.displayName}: </strong>
-              {comment.comment ? filter.clean(comment.comment) : ''}
-            </li>
-          ))}
-        </ul>
-        {currentUser && (
-        <div>
-          <input
-            type='text'
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
+    <div className="location-details">
+      <h2 className="subtitle">Location Details</h2>
+      <ul>
+        <li>
+          <strong>ROCKDROP: </strong>
+          {location?.details.rockdrop ? (
+          <h2 className="value">{location?.details.rockdrop}ft</h2>
+          ) : (
+          <h2 className="value">?</h2>
+          )}
+        </li>
+        <li>
+          <strong>TOTAL: </strong> 
+          {location?.details.total ? (
+          <h2 className="value">{location?.details.total}ft</h2>
+          ) : (
+          <h2 className="value">?</h2>
+          )}
+        </li>
+        <li>
+          <strong>CLIFF ASPECT: </strong>
+          {location?.details.cliffAspect ? (
+          <h2 className="value">{location?.details.cliffAspect}</h2>
+          ) : (
+          <h2 className="value">?</h2>
+          )}
+        </li>
+        <li>
+          <strong>ANCHOR: </strong>
+          {location?.details.anchor ? (
+          <h2 className="value">{location?.details.anchor}</h2>
+          ) : (
+          <h2 className="value">?</h2>
+          )}
+        </li>
+        <li>
+          <strong>ACCESS: </strong>
+          {location?.details.access ? (
+          <p className="value">{location.details.access}</p>
+          ) : (
+          <p className="value">?</p>
+          )}
+        </li>
+        <li>
+          <strong>NOTES: </strong>
+          {location?.details.notes ? (
+          <p className="value">{location.details.notes}</p>
+          ) : (
+          <p className="value">?</p>
+          )}
+        </li>
+      </ul>
+    </div>
+
+    <div className="comments">
+      <h2 className="subtitle">Comments</h2>
+      <ul>
+        {comments.map((comment, index) => (
+          <li key={index}>
+            <strong>{comment.displayName}: </strong>
+            <span className="value">{comment.comment ? filter.clean(comment.comment) : ''}</span>
+          </li>
+        ))}
+      </ul>
+      {currentUser && (
+        <div className="add-comment">
+          <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} />
           <button onClick={addComment}>Add Comment</button>
         </div>
       )}
-      </div>
-
     </div>
+  </div>
+
   )
 }
 

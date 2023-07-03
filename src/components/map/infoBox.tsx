@@ -95,7 +95,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
 
   return (
     <div className="infoBox" >
-      <h2><strong>{ info.name }</strong></h2>
+      <h2><strong>{ info.name.toUpperCase() }</strong></h2>
       <ul>
         <li><strong>{ info.coordinates[0] }, {info.coordinates[1]}</strong></li>
       </ul>

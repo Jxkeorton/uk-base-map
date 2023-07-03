@@ -6,10 +6,13 @@
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    overflow: hidden;
-    background-color: #ececec;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  overflow-y: scroll;
+  background-color: #ececec;
+  font-size: 1.1rem;
 }
 
 
@@ -563,85 +566,156 @@ header .nav-btn {
 
 /* Location page */
 
-.LocationPageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
   margin-top: 90px;
-  margin-bottom: 100px;
-  height: 78vh;
-  overflow-y: auto;
+  padding: 20px;
 }
 
-.LocationPageContainer h1 {
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 20px;
+  transform: uppercase;
+}
+
+.subtitle {
   font-size: 24px;
   font-weight: bold;
+  margin: 0;
   margin-bottom: 10px;
 }
 
-.LocationPageContainer p {
+.paragraph {
+  margin: 0;
   margin-bottom: 10px;
 }
 
-.LocationPageContainer .locationImage {
-  width: 300px;
+.coordinates {
+  text-align: center;
+}
+
+.link {
+  color: #df9c38;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.image-container {
+  margin-bottom: 20px;
+}
+
+.image-container img {
+  width: 100%;
   height: auto;
-  margin-bottom: 10px;
 }
 
-.LocationPageContainer .notes-container {
-  margin-bottom: 10px;
+.location-details {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.LocationPageContainer .notes-container h4 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
+.location-details .subtitle {
+  color: #df9c38;
+  margin-top: 10px;
 }
 
-.LocationPageContainer .notes {
-  margin-bottom: 10px;
-}
-
-.LocationPageContainer h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.LocationPageContainer ul {
+.location-details ul {
   list-style-type: none;
-  margin-bottom: 10px;
+  padding: 0;
+  margin: 0;
 }
 
-.LocationPageContainer li {
-  margin-bottom: 5px;
+.location-details li {
+  margin-bottom: 20px;
 }
 
-.LocationPageContainer input[type='text'] {
-  width: 300px;
-  height: 30px;
+.location-details li .icon {
   margin-right: 10px;
 }
 
-.LocationPageContainer button {
+.location-details li strong {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.location-details li p {
+  margin: 0;
+}
+
+.comments {
+  margin-top: 20px;
+}
+
+.comments .subtitle {
+  color: #df9c38;
+}
+
+.comments ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comments li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.comments li:last-child {
+  border-bottom: none;
+}
+
+.comments li strong {
+  font-weight: bold;
+}
+
+.comments li .author {
+  color: #888;
+}
+
+.comments .add-comment {
+  margin-top: 20px;
+}
+
+.comments input[type='text'] {
+  width: 100%;
+  height: 40px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.comments button {
   padding: 5px 10px;
   font-size: 16px;
   font-weight: bold;
   background-color: #df9c38;
   border: none;
   border-radius: 5px;
-  color: white;
+  color: #fff;
   cursor: pointer;
+  margin-bottom: 50px;
 }
 
-.LocationPageContainer button:hover {
-  background-color: #c57e2e;
+.comments button:hover {
+  background-color: #c87b1a;
 }
 
 .LocationPageMap {
-  height:400px;
-  width:400px;
+  width: 90vh;
+  height: 400px;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 
