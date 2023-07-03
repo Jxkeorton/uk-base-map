@@ -92,6 +92,15 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
     } 
   }
 
+  const handleGoogleMapsClick = () => {
+    const [latitude, longitude] = info?.coordinates ?? [];
+
+    if (latitude && longitude) {
+      const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+      window.open(url, '_blank');
+    }
+  };
+
 
   return (
     <div className="infoBox" >
@@ -108,6 +117,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
         )}
         <Link to={`/location/${info.id}`} >
           <button className='infoBoxMore' ><p>Details</p></button>
+          <button  className='infoBoxMore' onClick={handleGoogleMapsClick}>Google pin</button>
         </Link>
       </div>
     </div>

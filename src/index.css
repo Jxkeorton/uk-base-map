@@ -718,6 +718,26 @@ header .nav-btn {
   margin-bottom: 20px;
 }
 
+.go-to-google-button {
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #df9c38;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.go-to-google-button:hover {
+  background-color: #c87b1a;
+}
 
 /* Search results */
 .searchBar {

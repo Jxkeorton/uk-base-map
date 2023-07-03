@@ -168,6 +168,15 @@ function Location() {
       toast.error('Error adding comment:');
     }
   };
+
+  const handleGoogleMapsClick = () => {
+    const [latitude, longitude] = location?.coordinates ?? [];
+
+    if (latitude && longitude) {
+      const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+      window.open(url, '_blank');
+    }
+  };
   
   const override: React.CSSProperties = {
     display: "flex",
@@ -205,7 +214,7 @@ function Location() {
       zoom={15}
     />):(<h1>Could Not Load Location</h1>) }
 
-    <p className="paragraph coordinates">{location?.coordinates.join(', ')}</p>
+    <div className="button-container" ><button  className='go-to-google-button' onClick={handleGoogleMapsClick}>Open in Google Maps</button></div>
     
 
     <div className="location-details">
