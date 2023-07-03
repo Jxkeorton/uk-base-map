@@ -859,3 +859,24 @@ header .nav-btn {
 .submit-form-container form .submit-form-group button:hover {
   background-color: #c87b1a;
 }
+
+.image-input {
+  display: none;
+}
+
+.image-input-label {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #df9c38;
+  color: white;
+  cursor: pointer;
+}
+
+.image-input-label:hover {
+  background-color: #c87b1a;
+}
+
+.image-input-label:active {
+  background-color: #c1c1c1;
+}
+

@@ -2,6 +2,9 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import {toast} from 'react-toastify'
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase.config';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { PacmanLoader } from 'react-spinners';
+
 
 const Submit = () => {
     const [formData, setFormData] = useState({
@@ -18,6 +21,10 @@ const Submit = () => {
         email:'',
         video:'',
       });
+    const [imageFiles, setImageFiles] = useState<File[]>([]); 
+    const [isLoading, setIsLoading] = useState(false);
+
+    const storage = getStorage();
 
 const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prevFormData) => ({
@@ -26,34 +33,64 @@ const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement
     }));
 };
 
-const handleSubmit = async (e: FormEvent) => {
+const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const selectedFiles = Array.from(files);
+      setImageFiles(selectedFiles);
+      toast.success("File added")
+    }
+  };
+  
+  
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
-        const docRef = await addDoc(collection(db, 'submits'), formData);
-        console.log('Document written with ID: ', docRef.id);
-  
-        // Display success message or perform any necessary actions
-        toast.success('Form submitted successfully!');
-        setFormData({
-            exitName: '',
-            rockdrop: '',
-            total: '',
-            anchor: '',
-            access: '',
-            notes:'',
-            coordinates:'',
-            cliffAspect:'',
-            openedby:'',
-            dateOpened:'',
-            email:'',
-            video:'',
-        });
-      } catch (error) {
-        toast.error('Error adding document');
-        console.log('error with form submit: ', error)
+      // Upload the image files to Firebase Storage
+      const imageURLs: string[] = [];
+      for (const file of imageFiles) {
+        const storageRef = ref(storage, `submissions/${file.name}`);
+        await uploadBytes(storageRef, file);
+        const imageURL = await getDownloadURL(storageRef);
+        imageURLs.push(imageURL);
       }
-    };
+
+      // Save the form data and image URLs to Firestore
+      const submissionData = {
+        ...formData,
+        imageURLs, // Add the image URLs to the form data
+      };
+
+      const docRef = await addDoc(collection(db, 'submits'), submissionData);
+      console.log('Document written with ID: ', docRef.id);
+
+      // Display success message or perform any necessary actions
+      toast.success('Form submitted successfully!');
+      setFormData({
+        exitName: '',
+        rockdrop: '',
+        total: '',
+        anchor: '',
+        access: '',
+        notes: '',
+        coordinates: '',
+        cliffAspect: '',
+        openedby: '',
+        dateOpened: '',
+        email: '',
+        video: '',
+      });
+      setImageFiles([]);
+    } catch (error) {
+      toast.error('Error adding document');
+      console.log('error with form submit: ', error);
+    } finally {
+        setIsLoading(false); // Hide loader
+    }
+  };
 
 
 
@@ -183,7 +220,18 @@ const handleSubmit = async (e: FormEvent) => {
           />
         </div>
         <div className="submit-form-group">
-          <button type="submit">Submit</button>
+          <label htmlFor="image" className='image-input-label'>Upload Images</label>
+          <input 
+            type="file" 
+            id="image" 
+            name="image" 
+            onChange={handleFileChange}
+            className='image-input'
+            multiple
+             />
+        </div>
+        <div className="submit-form-group">
+          <button type="submit">{isLoading ? <PacmanLoader /> : 'Submit'}</button>
         </div>
       </form>
     </div>
