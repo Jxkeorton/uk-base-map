@@ -21,7 +21,8 @@ const Header = () => {
   const navigationItems = [
     { label: 'Map', route: '/' },
     { label: 'Search', route: '/search-locations', icon: faSearch },
-    { label: 'Profile', route: '/profile', icon: faUser },
+    { label: 'Submit', route: '/submit'},
+    { label: 'Profile', route: '/profile', icon: faUser }
   ];
 
   return (

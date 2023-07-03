@@ -9,6 +9,7 @@ import LogIn from './components/pages/LogIn'
 import ForgotPassword from './components/pages/ForgotPassword'
 import Location from './components/pages/Location'
 import Profile from './components/pages/Profile'
+import Submit from './components/pages/Submit'
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './components/PrivateRoute'
 import Search from './components/search/Search'
@@ -80,6 +81,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/search-locations' element={<Search />} />
+          <Route path='/submit' element={<Submit />} />
         </Routes>
         <Header />
       </Router>
