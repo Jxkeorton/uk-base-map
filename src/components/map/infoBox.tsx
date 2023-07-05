@@ -120,8 +120,8 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info, onLocationSaved }) => {
         )}
         <Link to={`/location/${info.id}`} >
           <button className='infoBoxMore' ><p>Details</p></button>
-          <button  className='infoBoxMore' onClick={handleGoogleMapsClick}>Google pin</button>
         </Link>
+          <button  className='infoBoxMore' onClick={handleGoogleMapsClick}>Google pin</button>
       </div>
     </div>
   )

@@ -10,6 +10,7 @@ import ForgotPassword from './components/pages/ForgotPassword'
 import Location from './components/pages/Location'
 import Profile from './components/pages/Profile'
 import Submit from './components/pages/Submit'
+import Home from './components/pages/Home'
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './components/PrivateRoute'
 import Search from './components/search/Search'
@@ -39,6 +40,7 @@ const fetchData = async (): Promise<Locations[]> => {
 function App() {
   const [eventData, setEventData] = useState<Locations[]>([])
   const [loading, setLoading] = useState(false)
+  
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -82,6 +84,7 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/search-locations' element={<Search />} />
           <Route path='/submit' element={<Submit />} />
+          <Route path='/home' element={<Home />} />
         </Routes>
         <Header />
       </Router>

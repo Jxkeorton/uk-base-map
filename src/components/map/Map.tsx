@@ -1,6 +1,6 @@
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
-import InfoBox from './infoBox'
+import InfoBox from './infoBox';
 import { useState, useEffect } from 'react';
 import { googleKey } from '../../../env';
 import { doc, getDoc } from 'firebase/firestore';
@@ -19,7 +19,8 @@ interface MapProps {
 
 const Map: React.FC<MapProps> = ({ eventData }) => {
   const [infoBox, setInfoBox] = useState<Locations | null>(null);
-  const [isSaved, setIsSaved] = useState<string[]>([])
+  const [isSaved, setIsSaved] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkLocationSaved = async () => {
@@ -28,6 +29,7 @@ const Map: React.FC<MapProps> = ({ eventData }) => {
         const currentUser = auth.currentUser;
         if (!currentUser) {
           console.error('No authenticated user found');
+          setLoading(false);
           return;
         }
         const userId: string = currentUser.uid;
@@ -38,6 +40,7 @@ const Map: React.FC<MapProps> = ({ eventData }) => {
         const { locationIds = [] } = userDocData || {};
 
         setIsSaved(locationIds);
+        setLoading(false);
       } catch (error) {
         console.error('Error checking if location saved:', error);
       }
@@ -56,8 +59,14 @@ const Map: React.FC<MapProps> = ({ eventData }) => {
         return prevIsSaved.filter((id) => id !== locationId);
       }
     });
+
+    // Save the updated isSaved state to local storage
+    localStorage.setItem('savedLocations', JSON.stringify(isSaved));
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   const markers = eventData.map((location) => {
     const { id, coordinates } = location;
@@ -90,4 +99,3 @@ const Map: React.FC<MapProps> = ({ eventData }) => {
 };
 
 export default Map;
-

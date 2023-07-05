@@ -19,10 +19,10 @@ const Header = () => {
   };
 
   const navigationItems = [
+    { label: 'Home', route: '/home'},
     { label: 'Map', route: '/' },
-    { label: 'Search', route: '/search-locations', icon: faSearch },
-    { label: 'Submit', route: '/submit'},
-    { label: 'Profile', route: '/profile', icon: faUser }
+    { label: 'Profile', route: '/profile', icon: faUser },
+    { label: 'Search', route: '/search-locations', icon: faSearch }
   ];
 
   return (
