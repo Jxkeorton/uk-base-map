@@ -44,7 +44,6 @@ interface MoreData {
 
 function Location() {
   const [location, setLocation] = useState<Location |null>(null)
-  const [moreData, setMoreData] = useState<MoreData | null>(null)
   const [loading, setLoading] = useState(true)
   const [comments, setComments] = useState<Comment[]>([]);
   const [comment, setComment] = useState('');
@@ -88,7 +87,7 @@ function Location() {
 
         if (docSnap.exists()) {
           const locationData = docSnap.data() as MoreData;
-          setMoreData(locationData);
+          console.log(locationData);
           setComments(locationData.comments || []);
         }
       } catch (error) {
@@ -104,7 +103,7 @@ function Location() {
     const unsubscribe = onSnapshot(locationRef, (docSnap) => {
       if (docSnap.exists()) {
         const locationData = docSnap.data() as MoreData;
-        setMoreData(locationData);
+        console.log(locationData);
         setComments(locationData.comments || []);
       }
     });

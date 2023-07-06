@@ -11,10 +11,9 @@ interface InfoBoxProps {
     name: string;
     coordinates: [number, number];
   };
-  onLocationSaved: (locationId: string, isSaved: boolean) => void;
 }
 
-const InfoBox: React.FC<InfoBoxProps> = ({ info, onLocationSaved }) => {
+const InfoBox: React.FC<InfoBoxProps> = ({ info }) => {
   const [Saved, setSaved] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -81,14 +80,12 @@ const InfoBox: React.FC<InfoBoxProps> = ({ info, onLocationSaved }) => {
         console.log('Location ID removed from user document');
         toast.success('Location removed')
         setSaved(false)
-        onLocationSaved(info.id, false);
       } else {
         // Add the location ID to the array
         await setDoc(userDocRef, { locationIds: arrayUnion(info.id) }, {merge:true});
         console.log('Location ID added to user document');
         toast.success('Location Saved')
         setSaved(true)
-        onLocationSaved(info.id, true);
       }
     } catch (error) {
         toast.error('Could not toggle Location');

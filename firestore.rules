@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
   
-    // Locations
+    
     match /locations/{locationId} {
       allow read;
       allow create: if request.auth != null;
@@ -10,14 +10,14 @@ service cloud.firestore {
       allow delete: if request.auth != null;
     }
    
-    // Users
+    
     match /users/{userId} {
       allow read;
       allow create;
       allow update: if request.auth != null && request.auth.uid == userId;
     }
 
-    // Submits
+    
     match /submits/{submitId} {
       allow read;
       allow create;
