@@ -282,6 +282,7 @@ header .nav-btn {
     width: 80px;
     min-height:30px;
     background-color: hsl(10, 72%, 55%);
+    color: black;
     font-weight: bold;
     border-radius: 10px;
    }
@@ -290,6 +291,7 @@ header .nav-btn {
     width: 80px;
     min-height:30px;
     background-color: #df9c38;
+    color:black;
     font-weight: bold;
     border-radius: 10px;
    }
@@ -306,6 +308,7 @@ header .nav-btn {
     font-weight: bold;
     border-radius: 10px;
     margin-left: auto;
+    color:black;
    }
 
    @media screen and (max-width: 767px) {
