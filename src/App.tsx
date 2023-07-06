@@ -16,7 +16,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Search from './components/search/Search'
 import { PacmanLoader } from 'react-spinners';
 import {toast} from 'react-toastify'
-import { apiUrl } from '../env';
+import { apiUrl } from '../env'
 
 interface Locations {
   id: string;
@@ -29,7 +29,7 @@ const fetchData = async (): Promise<Locations[]> => {
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    const locations: Locations[] = data;
+    const locations: Locations[] = data.locations;
     return locations;
   } catch (error) {
     console.error('Error:', error);

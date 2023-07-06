@@ -15,6 +15,10 @@ interface Location {
   rockdrop: string;
 }
 
+interface ApiData {
+  locations: Location[];
+}
+
 function Profile() {
   const auth = getAuth();
   const [ filteredLocations, setFilteredLocations] = useState<Location[]>([]);
@@ -43,9 +47,9 @@ function Profile() {
           setLocations(locationIds)
 
           const response = await fetch(apiUrl);
-          const data: Location[] = await response.json();
+          const data: ApiData = await response.json();
 
-          setFetchedData(data)
+          setFetchedData(data.locations)
           console.log('Fetched Data:', data);
 
       } catch (error) {

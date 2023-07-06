@@ -25,7 +25,8 @@ function LocationsSearch() {
             setLoading(true);
 
             const response = await fetch(apiUrl);
-            const data = await response.json();
+            const allData = await response.json();
+            const data = allData.locations
 
             const lowercaseSearchQuery = searchQuery.toLowerCase();
             const filteredResults = data.filter((location: Location) =>

@@ -63,15 +63,22 @@ function Location() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/${params.locationId}`);
+        const locationId = params.locationId;
+        if (!locationId) {
+          throw new Error('Location ID is undefined');
+        }
+    
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Failed to fetch location');
         }
         const data = await response.json();
-        console.log(data);
-        setLocation(data);
+        const parsedLocationId = parseInt(locationId);
+        const location = data.locations.find((loc: Location) => loc.id === parsedLocationId);
+        console.log(location);
+        setLocation(location);
       } catch (error) {
-        toast.error('Error fetching location:');
+        toast.error('Error fetching location');
       }
 
       try {
