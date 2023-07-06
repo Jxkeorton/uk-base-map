@@ -311,6 +311,7 @@ header .nav-btn {
    @media screen and (max-width: 767px) {
     .infoBox {
       margin-top: 80px;
+      text-decoration: none;
       top: 10px;
       right: 10px;
       width: 300px;
