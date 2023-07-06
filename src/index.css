@@ -308,6 +308,18 @@ header .nav-btn {
     margin-left: auto;
    }
 
+   @media screen and (max-width: 767px) {
+    .infoBox {
+      margin-top: 80px;
+      top: 10px;
+      right: 10px;
+      width: 300px;
+      min-height: 80px;
+      padding: 15px;
+      font-size: 16px;
+    }
+  }
+
    /* Marker */
 .custom-marker {
   position: absolute;
