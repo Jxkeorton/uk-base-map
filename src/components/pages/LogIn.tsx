@@ -90,11 +90,12 @@ function LogIn() {
   return (
     <>
       <div className="log-in-container">
+      
+
+      <form className="log-in-form" onSubmit={onSubmit} >
       <header className="log-in-header">
         <p className='log-in-title' >Log In</p>
       </header>
-
-      <form className="log-in-form" onSubmit={onSubmit} >
       <div className='input-wrapper'>
         <input
           type='email'
