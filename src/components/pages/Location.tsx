@@ -201,7 +201,16 @@ function Location() {
     <h1 className="title">{location?.name.toUpperCase()}</h1>
     <p className='paragraph'><strong>Opened by: </strong>
     {location?.openedBy.name ? (
-          <span className="value">{location.openedBy.name.toUpperCase()}</span>
+          <span className="value">
+          {location.openedBy.name.toUpperCase().includes("JOSH B") ? (
+          <>
+            {"JOSH BREGMEN"}
+            {"" + location.openedBy.name.substring(6)}
+          </>
+        ) : (
+          location.openedBy.name.toUpperCase()
+        )}
+        </span>
           ) : (
           <span className="value">?</span>
           )}
