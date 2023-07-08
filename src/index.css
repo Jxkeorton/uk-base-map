@@ -369,6 +369,7 @@ header .nav-btn {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 20px;
 }
 
 .log-in-header {
@@ -385,7 +386,9 @@ header .nav-btn {
   font-weight: bolder;
   color: #df9c38;
   text-shadow: 1px 1px 0 black;
-  margin-top:150px;
+  margin-top:200px;
+  margin-bottom: 20px; 
+  text-align: center;
 }
 
 .log-in-form {

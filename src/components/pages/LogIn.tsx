@@ -91,22 +91,21 @@ function LogIn() {
     <>
       <div className="log-in-container">
       
-
       <form className="log-in-form" onSubmit={onSubmit} >
-      <header className="log-in-header">
-        <p className='log-in-title' >Log In</p>
-      </header>
-      <div className='input-wrapper'>
-        <input
-          type='email'
-          className='log-in-input'
-          placeholder='Email'
-          id='email'
-          value={email}
-          onChange={onChange}
-        />
-        {formErrors.emailError && <span className='error-message'>{formErrors.emailError}</span>}
-      </div>
+        <header className="log-in-header">
+          <p className='log-in-title' >Log In</p>
+        </header>
+        <div className='input-wrapper'>
+          <input
+            type='email'
+            className='log-in-input'
+            placeholder='Email'
+            id='email'
+            value={email}
+            onChange={onChange}
+          />
+          {formErrors.emailError && <span className='error-message'>{formErrors.emailError}</span>}
+        </div>
 
       <div className='log-in-password'>
         <input
