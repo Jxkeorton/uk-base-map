@@ -932,9 +932,9 @@ header .nav-btn {
 }
 
 .submit-link:hover {
-  background-color: #eaeaea;
+  background-color: #df9c38;
   cursor: pointer;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.9);
 }
 
 .image-container {
@@ -949,9 +949,24 @@ header .nav-btn {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(237, 134, 0);
+  background-image: url('./assets/jpg/banner.jpg');
+  background-size: cover;
+  position: relative;
   color: #ffffff;
   padding: 20px;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: 800px;
+  position: relative;
+  color: #ffffff;
+  border-radius: 11px;
+  padding: 20px;
+  z-index: 1;
 }
 
 .warning-div h3 {

@@ -32,21 +32,24 @@ function Home() {
   return (
 
     <div className="home-container">
-
-      <div className="warning-div">
-        <h3>WARNING</h3>
-        <p>The information on this guide can be inaccurate and mistaken, and is only meant to help jumpers choose a location - you must be prepared to make all measurements and decisions alone. Do not rely on any information given here. Rock drops and GPS locations have the potential to be dangerously inaccurate.</p>
-        <p>Directions unless stated otherwise will be given from the jumper's perspective.</p>
-        <p>Thanks to everyone who helped compile this information!</p>
-        <Link to='/submit' className="submit-link">
-            <h2>SUBMIT A NEW EXIT</h2>
-        </Link>
-      </div>
+      
+        <div className="warning-div">
+          <div className='overlay' >
+            <h3>WARNING</h3>
+            <p>The information on this guide can be inaccurate and mistaken, and is only meant to help jumpers choose a location - you must be prepared to make all measurements and decisions alone. Do not rely on any information given here. Rock drops and GPS locations have the potential to be dangerously inaccurate.</p>
+            <p>Directions unless stated otherwise will be given from the jumper's perspective.</p>
+            <p>Thanks to everyone who helped compile this information!</p>
+            <Link to='/submit' className="submit-link">
+                <h2>SUBMIT A NEW EXIT</h2>
+            </Link>
+          </div>
+          
+        </div>
+      
     
       <h2 className='gallery-title'>Photography by Dave Gallagher</h2>
 
-      <img className='banner-img' src={imageUrls[0]} alt="Downloaded Image" key={imageUrls[0]} />
-    
+      
       <div id='gallery'>
         <img src={imageUrls[1]} alt='' />
         <img src={imageUrls[2]} alt=''/>
